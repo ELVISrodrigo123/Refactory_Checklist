@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=django_user
+      - POSTGRES_PASSWORD=msc_2025_checklist
+      - POSTGRES_DB=django_db_dev
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U django_user -d django_db_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file: 
+      - .env.dev
+    environment:
+      - DB_NAME=django_db_dev
+      - DB_USER=django_user
+      - DB_PASSWORD=msc_2025_checklist
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      db:
+        condition: service_healthy
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
