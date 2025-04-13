@@ -1,6 +1,7 @@
 "use client";
 import { ReactNode } from "react";
 import { Box, styled } from "@mui/material";
+import DrawerAppBar from "@/principal/components/navbar";
 
 const OverviewWrapper = styled(Box)(
     ({ theme }) => `
@@ -18,6 +19,7 @@ type Props = {
 export default function GlobalBgProvider({ children }: Props) {
     return (
         <OverviewWrapper>
+            <DrawerAppBar />
             {children}
         </OverviewWrapper>
     );
