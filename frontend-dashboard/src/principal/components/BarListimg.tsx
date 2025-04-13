@@ -13,7 +13,7 @@ export default function VisionSection() {
   return (
     <Box sx={{
       position: 'relative',
-      width: '100%',
+      width: '100vw',
       height: isMobile ? '100vh' : '100vh',
       overflow: 'hidden',
       display: 'flex',
@@ -30,10 +30,11 @@ export default function VisionSection() {
           position: 'absolute',
           top: 0,
           left: 0,
-          width: '100%',
-          height: '100%',
+          width: '100vw',
+          height: '100vh',
           objectFit: 'cover',
-          zIndex: -1,
+          zIndex: 1,
+          opacity: 0.2
         }}
       >
         <source src={videoSrc} type="video/mp4" />

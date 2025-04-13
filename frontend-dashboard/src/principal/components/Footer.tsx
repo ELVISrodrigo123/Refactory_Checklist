@@ -1,13 +1,13 @@
-import { Box, Container, Grid, IconButton, Typography, Link, useTheme } from "@mui/material";
-import { 
-  Facebook, 
-  LinkedIn, 
-  WhatsApp, 
-  Twitter, 
+import { Box, Container, Grid, IconButton, Typography, Link, useTheme, Button } from "@mui/material";
+import {
+  Facebook,
+  LinkedIn,
+  WhatsApp,
+  Twitter,
   YouTube,
   Email,
   LocationOn,
-  Phone 
+  Phone
 } from "@mui/icons-material";
 
 const Footer = () => {
@@ -37,22 +37,16 @@ const Footer = () => {
   return (
     <Box
       component="footer"
-      sx={{
-        backgroundColor: theme.palette.primary.dark,
-        color: theme.palette.common.white,
-        pt: 6,
-        pb: 4,
-        borderTop: `1px solid ${theme.palette.divider}`
-      }}
+
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Grid container spacing={4}>
           {/* Logo y descripción */}
-          <Grid item xs={12} md={4}>
-            <Typography 
-              variant="h5" 
+          <Grid maxWidth="" item xs={12} md={4}>
+            <Typography
+              variant="h5"
               component="div"
-              sx={{ 
+              sx={{
                 fontWeight: 700,
                 mb: 2,
                 color: theme.palette.common.white
@@ -63,27 +57,20 @@ const Footer = () => {
             <Typography variant="body2" sx={{ mb: 2 }}>
               Liderando la minería con innovación y responsabilidad.
             </Typography>
-            
+
             {/* Redes sociales */}
-            <Box sx={{ mt: 2 }}>
+            <Box sx={{ mt: 2, display: "flex", gap: 2 }} >
               {socialLinks.map((social, index) => (
-                <IconButton
+                <Button
                   key={index}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  sx={{ 
-                    color: theme.palette.common.white,
-                    '&:hover': {
-                      backgroundColor: theme.palette.primary.main,
-                      transform: 'scale(1.1)'
-                    },
-                    transition: 'all 0.3s ease'
-                  }}
-                >
-                  {social.icon}
-                </IconButton>
+                  startIcon={social.icon}
+                  variant="outlined"
+                  sx={{ pl: 3 }}
+                />
               ))}
             </Box>
           </Grid>
@@ -112,8 +99,8 @@ const Footer = () => {
             </Typography>
             {legalLinks.map((link, index) => (
               <Box key={index} sx={{ mb: 1.5 }}>
-                <Link 
-                  href={link.url} 
+                <Link
+                  href={link.url}
                   color="inherit"
                   underline="hover"
                   sx={{
@@ -130,7 +117,7 @@ const Footer = () => {
         </Grid>
 
         {/* Copyright */}
-        <Box sx={{ 
+        <Box sx={{
           mt: 4,
           pt: 3,
           borderTop: `1px solid ${theme.palette.divider}`,
