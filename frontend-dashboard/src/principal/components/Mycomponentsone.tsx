@@ -1,18 +1,18 @@
-import { Box, Typography, Grid, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Typography, Grid, useTheme, useMediaQuery, Card, Divider } from '@mui/material';
 import Image from 'next/image';
 
 const riskCards = [
-  {
-    title: "Riesgo",
-    description: "Identificación de riesgos asociados a las operaciones en la planta minera.",
-    image: "/assets/img/riesgoh.png",
-    altText: "Ilustración de análisis de riesgos"
-  },
   {
     title: "Peligro",
     description: "Evaluación de peligros potenciales y su impacto en la seguridad de los trabajadores.",
     image: "/assets/img/peligroh.png",
     altText: "Ilustración de identificación de peligros"
+  },
+  {
+    title: "Riesgo",
+    description: "Identificación de riesgos asociados a las operaciones en la planta minera.",
+    image: "/assets/img/riesgoh.png",
+    altText: "Ilustración de análisis de riesgos"
   },
   {
     title: "Medidas de Control",
@@ -30,14 +30,13 @@ export default function RiskAnalysis() {
 
   return (
     <Box sx={{
-      backgroundColor: 'primary.main',
       color: 'white',
       py: 8,
       px: isMobile ? 2 : 4,
       textAlign: 'center',
     }}>
-      <Typography variant={isMobile ? "h4" : "h3"} sx={{ 
-        fontWeight: 700, 
+      <Typography variant={isMobile ? "h4" : "h3"} sx={{
+        fontWeight: 700,
         mb: 5,
         px: isMobile ? 2 : 0
       }}>
@@ -55,18 +54,16 @@ export default function RiskAnalysis() {
         </Typography>
       </Box>
 
-      <Grid container spacing={4} justifyContent="center">
+      <Grid container spacing={4} justifyContent="center" alignItems={'center'}>
         {riskCards.map((card, index) => (
           <Grid item xs={12} md={4} key={index}>
-            <Box sx={{
-              backgroundColor: 'background.paper',
-              p: 4,
-              borderRadius: 2,
-              textAlign: 'center',
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column'
-            }}>
+            <Card
+              variant="outlined"
+              sx={{
+                p: 3,
+                background: `${theme.colors.alpha.black[5]}`
+              }}
+            >
               <Box sx={{
                 width: '100%',
                 height: 250,
@@ -86,17 +83,21 @@ export default function RiskAnalysis() {
                   quality={85}
                 />
               </Box>
-              <Typography variant="h5" sx={{ 
-                fontWeight: 600, 
-                mb: 2,
-                flexGrow: 1
-              }}>
+              <Divider
+                sx={{
+                  my: 2
+                }}
+              />
+              <Typography variant="h5" sx={{
+                pb: 2
+              }}
+                color="text.secondary">
                 {card.title}
               </Typography>
               <Typography variant="body1" color="text.secondary">
                 {card.description}
               </Typography>
-            </Box>
+            </Card>
           </Grid>
         ))}
       </Grid>

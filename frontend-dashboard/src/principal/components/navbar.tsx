@@ -1,10 +1,15 @@
+"use client"
 import { useState } from 'react';
-import { 
-  AppBar, Box, CssBaseline, Divider, Drawer, 
-  IconButton, ListItem, Toolbar, Button 
+import {
+  AppBar, Box, CssBaseline, Divider, Drawer,
+  IconButton, ListItem, Toolbar, Button, styled,
+  alpha,
+  useTheme,
+  lighten
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
+import { Logo } from '@/components/Logo';
 
 const drawerWidth = 240;
 const navItems = [
@@ -21,51 +26,61 @@ const navItems = [
   { name: 'Sign In', href: '/auth', isButton: true },
 ];
 
-const primaryColor = '#5569ff';
-const whiteColor = '#fff';
-const drawerTextColor = '#1a237e';
+
 
 export default function DrawerAppBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const toggleDrawer = () => setMobileOpen(prev => !prev);
+  const theme = useTheme();
 
   const renderNavItem = (item: typeof navItems[0], isMobile = false) => (
     <Link key={item.name} href={item.href} passHref legacyBehavior>
       {item.isButton ? (
-        <Button
-          variant="contained"
+        (mobileOpen ? <Box sx={{
+          width: mobileOpen ? "100%" : "auto",
+          marginTop: 10
+        }}>
+          <Divider
+            sx={{
+              my: 2
+            }}
+          />
+          <Button
+            variant="outlined"
+            sx={{
+              width: mobileOpen ? "100%" : "auto",
+            }}
+          >
+            {item.name}
+          </Button>
+        </Box> : <Button
+          variant="outlined"
           sx={{
-            backgroundColor: isMobile ? primaryColor : whiteColor,
-            color: isMobile ? whiteColor : primaryColor,
-            borderRadius: 4,
-            fontSize: item.isButton ? '0.7rem' : '1rem',
-            mx: 0.5,
-            my: isMobile ? 1 : 0,
-            width: isMobile ? '80%' : 'auto'
           }}
         >
           {item.name}
-        </Button>
+        </Button>)
       ) : (
-        <Button sx={{ 
-          color: isMobile ? drawerTextColor : whiteColor, 
-          fontSize: '1rem', 
-          mx: 0.5,
-          fontWeight: isMobile ? 600 : 'normal'
+        <Button sx={{
         }}>
           {item.name}
         </Button>
-      )}
-    </Link>
+      )
+      }
+    </Link >
   );
 
   const drawerContent = (
-    <Box onClick={toggleDrawer} sx={{ textAlign: 'center', py: 2 }}>
-      <Divider />
+    <Box onClick={toggleDrawer} sx={{ textAlign: 'center', py: 2, px: 1 }}>
+      <Logo />
+      <Divider
+        sx={{
+          my: 2
+        }}
+      />
       {navItems.map(item => (
-        <ListItem key={item.name} disablePadding sx={{ 
+        <ListItem key={item.name} disablePadding sx={{
           justifyContent: 'center',
-          my: 1
         }}>
           {renderNavItem(item, true)}
         </ListItem>
@@ -74,17 +89,28 @@ export default function DrawerAppBar() {
   );
 
   return (
-    <Box sx={{ width: '100%', overflowX: 'hidden' }}>
+    <Box display="flex"
+      alignItems="center"
+      sx={{
+        boxShadow:
+          theme.palette.mode === 'dark'
+            ? `0 1px 0 ${alpha(
+              lighten(theme.colors.primary.main, 0.7),
+              0.15
+            )}, 0px 2px 8px -3px rgba(0, 0, 0, 0.2), 0px 5px 22px -4px rgba(0, 0, 0, .1)`
+            : `0px 2px 8px -3px ${alpha(
+              theme.colors.alpha.black[100],
+              0.2
+            )}, 0px 5px 22px -4px ${alpha(
+              theme.colors.alpha.black[100],
+              0.1
+            )}`,
+      }}>
       <CssBaseline />
       <AppBar
         component="nav"
         sx={{
-          backgroundColor: primaryColor,
-          color: whiteColor,
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
+          py: 1
         }}
       >
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -93,14 +119,14 @@ export default function DrawerAppBar() {
             aria-label="open drawer"
             edge="start"
             onClick={toggleDrawer}
-            sx={{ display: { sm: 'none' }, mr: 2 }}
+            sx={{ display: { sm: 'none' }, m: 1 }}
           >
             <MenuIcon />
           </IconButton>
 
-          <Box sx={{ 
-            display: { xs: 'none', sm: 'flex' }, 
-            flexGrow: 1, 
+          <Box sx={{
+            display: { xs: 'none', sm: 'flex' },
+            flexGrow: 1,
             justifyContent: 'center',
             gap: 1,
             px: 2
@@ -118,10 +144,9 @@ export default function DrawerAppBar() {
           ModalProps={{ keepMounted: true }}
           sx={{
             display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { 
-              boxSizing: 'border-box', 
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
               width: drawerWidth,
-              backgroundColor: '#f5f5f5'
             },
           }}
         >

@@ -1,147 +1,48 @@
-import { useRouter } from "next/router";
-import React, { useState } from "react";
+"use client";
+import React from "react";
 import { Artactividad } from "../services/ArtactividadService";
-import { 
-  Button, 
-  Box, 
-  Typography, 
-  Stack, 
-  Paper,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle 
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import { Box, Button, Card, Container, Divider, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { useRouter } from "next/navigation";
 
 interface ArtactividadListProps {
   artactividades: Artactividad[];
-  onEliminar: (id: number) => void;
-  onEditar: (artactividad: Artactividad) => void;
+
 }
 
-const ArtactividadList = ({ 
-  artactividades, 
-  onEliminar, 
-  onEditar 
-}: ArtactividadListProps) => {
+const ArtactividadList: React.FC<ArtactividadListProps> = ({ artactividades }) => {
   const router = useRouter();
-  const [openDialog, setOpenDialog] = useState(false);
-  const [artactividadToDelete, setArtactividadToDelete] = useState<number | null>(null);
 
   const handleMostrarActividades = (artactividadId: number) => {
-    router.push(`/management/actividades/${artactividadId}`);
-  };
-
-  const handleOpenDeleteDialog = (id: number) => {
-    setArtactividadToDelete(id);
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-    setArtactividadToDelete(null);
-  };
-
-  const handleConfirmDelete = () => {
-    if (artactividadToDelete) {
-      onEliminar(artactividadToDelete);
-    }
-    handleCloseDialog();
+    router.push(`/management/actividad210/${artactividadId}`);
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Container component={Card} maxWidth="lg" sx={{ marginTop: "2em", padding: "2em", display: "grid", gridTemplateColumns: { sm: "1fr 1fr", md: "repeat(3, 1fr)", lg: "repeat(2, 1fr)" }, gap: "1em" }}>
       {artactividades.map((artactividad) => (
-        <Paper 
-          key={artactividad.id} 
-          elevation={3}
-          sx={{ 
-            p: 3,
-            borderRadius: 2,
-            backgroundColor: 'background.paper'
-          }}
+        <Card
+          key={artactividad.id}
+          className="border p-4 mb-2 rounded shadow"
+          sx={{ padding: "1em", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}
         >
-          <Typography variant="h6" fontWeight="bold" mb={2}>
+          <Typography variant="h3" component="h3" sx={{ fontSize: "1.5em", fontWeight: "bold", textAlign: "center" }}>
             {artactividad.nombre}
           </Typography>
 
-          <Stack direction="row" spacing={2} flexWrap="wrap">
+          <Box sx={{ marginTop: "auto", width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+            <Divider sx={{ margin: "1em 0", width: "100%" }} />
             <Button
               variant="contained"
-              color="warning"
-              startIcon={<EditIcon />}
-              onClick={() => onEditar(artactividad)}
-              sx={{ 
-                px: 3,
-                textTransform: 'none',
-                fontWeight: 600
-              }}
-            >
-              Editar
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              startIcon={<DeleteIcon />}
-              onClick={() => handleOpenDeleteDialog(artactividad.id!)}
-              sx={{ 
-                px: 3,
-                textTransform: 'none',
-                fontWeight: 600
-              }}
-            >
-              Eliminar
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
               startIcon={<VisibilityIcon />}
               onClick={() => handleMostrarActividades(artactividad.id!)}
-              sx={{ 
-                px: 3,
-                textTransform: 'none',
-                fontWeight: 600
-              }}
+              sx={{ marginTop: "" }}
             >
               Mostrar Actividades
             </Button>
-          </Stack>
-        </Paper>
+          </Box>
+        </Card>
       ))}
-
-      {/* Diálogo de confirmación */}
-      <Dialog
-        open={openDialog}
-        onClose={handleCloseDialog}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          Confirmar eliminación
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            ¿Estás seguro que deseas eliminar este registro? Esta acción no se puede deshacer.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} variant="contained" color="primary" >
-            Cancelar
-          </Button>
-          <Button 
-            onClick={handleConfirmDelete} 
-            color="error" 
-            autoFocus
-          >
-            Confirmar
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
+    </Container>
   );
 };
 
