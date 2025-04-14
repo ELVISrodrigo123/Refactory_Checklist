@@ -1,5 +1,4 @@
 import { createTheme, ThemeOptions } from "@mui/material";
-import { green, indigo, grey } from "@mui/material/colors";
 import { alpha, darken } from "@mui/material";
 
 declare module "@mui/material/styles" {
