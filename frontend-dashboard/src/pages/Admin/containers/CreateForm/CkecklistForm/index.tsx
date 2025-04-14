@@ -120,7 +120,6 @@ const FormularioChecklistComponent = () => {
             ...prev,
             [name]: value
         }));
-        // Limpiar error cuando se escribe
         if (errores[name as keyof typeof errores]) {
             setErrores(prev => ({ ...prev, [name]: '' }));
         }
@@ -214,10 +213,10 @@ const FormularioChecklistComponent = () => {
     };
 
     return (
-        <Box sx={{ flex: 1, bgcolor: "#1E293B", p: 3, borderRadius: 2, color: "white" }}>
+        <Box sx={{ flex: 1, p: 3, borderRadius: 2 }}>
             <Typography variant="h6" sx={{ mb: 2 }}>Crear Formulario Checklist</Typography>
 
-            <FormControl fullWidth sx={{ mb: 2, bgcolor: "white", borderRadius: 1 }} error={!!errores.sector}>
+            <FormControl fullWidth sx={{ mb: 2, borderRadius: 1 }} error={!!errores.sector}>
                 <InputLabel id="sector-label">Sector *</InputLabel>
                 <Select
                     labelId="sector-label"
@@ -249,7 +248,6 @@ const FormularioChecklistComponent = () => {
                         onChange={handleInputChange}
                         error={!!errores.titulo}
                         helperText={errores.titulo}
-                        sx={{ bgcolor: "white", borderRadius: 1 }}
                     />
                 </Grid>
 
@@ -262,7 +260,6 @@ const FormularioChecklistComponent = () => {
                         onChange={handleInputChange}
                         error={!!errores.codigo}
                         helperText={errores.codigo}
-                        sx={{ bgcolor: "white", borderRadius: 1 }}
                     />
                 </Grid>
 
@@ -275,7 +272,7 @@ const FormularioChecklistComponent = () => {
                         onChange={handleInputChange}
                         error={!!errores.version}
                         helperText={errores.version}
-                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                     />
                 </Grid>
             </Grid>
@@ -287,7 +284,7 @@ const FormularioChecklistComponent = () => {
                         label="Ítem"
                         value={nuevoFormulario.item || ''}
                         onChange={handleInputChange}
-                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3} lg={2.4}>
@@ -297,7 +294,7 @@ const FormularioChecklistComponent = () => {
                         label="Aspecto a Verificar"
                         value={nuevoFormulario.aspecto_a_verificar || ''}
                         onChange={handleInputChange}
-                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3} lg={2.4}>
@@ -307,7 +304,7 @@ const FormularioChecklistComponent = () => {
                         label="Condición Buena"
                         value={nuevoFormulario.bueno || ''}
                         onChange={handleInputChange}
-                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3} lg={2.4}>
@@ -317,7 +314,7 @@ const FormularioChecklistComponent = () => {
                         label="Condición Mala"
                         value={nuevoFormulario.malo || ''}
                         onChange={handleInputChange}
-                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3} lg={2.4}>
@@ -327,7 +324,7 @@ const FormularioChecklistComponent = () => {
                         label="Comentarios"
                         value={nuevoFormulario.comentarios || ''}
                         onChange={handleInputChange}
-                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                     />
                 </Grid>
             </Grid>
@@ -337,11 +334,6 @@ const FormularioChecklistComponent = () => {
                 color="primary"
                 fullWidth
                 onClick={handleCrearFormulario}
-                sx={{
-                    bgcolor: "#2759ac",
-                    '&:hover': { bgcolor: "#1e3d8b" },
-                    mb: 3
-                }}
             >
                 Crear Formulario
             </Button>
@@ -349,7 +341,7 @@ const FormularioChecklistComponent = () => {
 
             <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>Formularios Disponibles</Typography>
 
-            <Paper sx={{ mb: 3, p: 2, bgcolor: '#334155' }}>
+            <Paper sx={{ mb: 3, p: 2 }}>
                 <Stack direction="row" spacing={2} alignItems="center">
                     <TextField
                         fullWidth
@@ -361,31 +353,16 @@ const FormularioChecklistComponent = () => {
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <SearchIcon sx={{ color: 'white' }} />
+                                    <SearchIcon />
                                 </InputAdornment>
                             ),
-                            sx: {
-                                color: 'white',
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: '#64748B'
-                                }
-                            }
+
                         }}
                     />
                     <Button
                         variant="contained"
                         onClick={handleBuscarPorCodigo}
                         disabled={!terminoBusqueda.trim()}
-                        sx={{
-                            bgcolor: '#2759ac',
-                            '&:hover': { bgcolor: '#1e3d8b' },
-                            height: '56px',
-                            minWidth: '120px',
-                            '&:disabled': {
-                                bgcolor: '#64748B',
-                                color: '#94a3b8'
-                            }
-                        }}
                     >
                         Buscar
                     </Button>
@@ -395,7 +372,6 @@ const FormularioChecklistComponent = () => {
                         fullWidth
                         variant="text"
                         onClick={cargarFormularios}
-                        sx={{ mt: 1, color: 'white' }}
                         startIcon={<RefreshIcon />}
                     >
                         Mostrar todos
@@ -403,17 +379,16 @@ const FormularioChecklistComponent = () => {
                 )}
             </Paper>
 
-            <List sx={{ maxHeight: '60vh', overflowY: "auto", bgcolor: "#1E293B", borderRadius: 2 }}>
+            <List>
                 {formularios.length === 0 ? (
                     <ListItem>
                         <ListItemText
                             primary={modoBusqueda ? "No se encontraron formularios" : "No hay formularios creados"}
-                            sx={{ color: "white", textAlign: 'center' }}
                         />
                     </ListItem>
                 ) : (
                     formularios.map((formulario) => (
-                        <Paper key={formulario.id} sx={{ mb: 2, bgcolor: '#334155' }}>
+                        <Paper key={formulario.id} sx={{ mb: 2 }}>
                             <ListItem
                                 secondaryAction={
                                     <Stack direction="row" spacing={1}>
@@ -424,7 +399,6 @@ const FormularioChecklistComponent = () => {
                                                 setFormularioEditando(formulario);
                                                 setDialogoAbierto(true);
                                             }}
-                                            sx={{ color: "white" }}
                                         >
                                             <EditIcon />
                                         </IconButton>
@@ -432,7 +406,6 @@ const FormularioChecklistComponent = () => {
                                             edge="end"
                                             aria-label="eliminar"
                                             onClick={() => handleEliminarFormulario(formulario.id)}
-                                            sx={{ color: "white" }}
                                         >
                                             <DeleteIcon />
                                         </IconButton>
@@ -447,11 +420,7 @@ const FormularioChecklistComponent = () => {
                                                 <Typography
                                                     component="span"
                                                     variant="caption"
-                                                    sx={{
-                                                        ml: 1,
-                                                        color: '#94a3b8',
-                                                        fontSize: '0.75rem'
-                                                    }}
+                                                    sx={{ ml: 3 }}
                                                 >
                                                     v{formulario.version} | {formulario.codigo}
                                                 </Typography>
@@ -459,14 +428,11 @@ const FormularioChecklistComponent = () => {
                                             <Chip
                                                 label={ESTADOS_FORMULARIO.find(e => e.value === formulario.estado)?.label}
                                                 color={getEstadoColor(formulario.estado)}
-                                                size="small"
-                                                icon={getEstadoIcon(formulario.estado)}
+                                                size="small" icon={getEstadoIcon(formulario.estado)}
                                                 sx={{ mt: 0.5, mb: 1 }}
                                             />
                                         </Box>
                                     }
-
-                                    sx={{ color: "white" }}
                                 />
                             </ListItem>
                         </Paper>
@@ -474,22 +440,21 @@ const FormularioChecklistComponent = () => {
                 )}
             </List>
 
-            {/* Diálogo de Edición */}
             <Dialog open={dialogoAbierto} onClose={() => setDialogoAbierto(false)} fullWidth maxWidth="md">
-                <DialogTitle sx={{ bgcolor: "#1E293B", color: "white" }}>Editar Formulario</DialogTitle>
-                <DialogContent sx={{ bgcolor: "#1E293B" }}>
+                <DialogTitle >Editar Formulario</DialogTitle>
+                <DialogContent >
                     {formularioEditando && (
                         <>
                             <TextField
+                                sx={{ mt: 2 }}
                                 fullWidth
                                 name="titulo"
                                 label="Título del Formulario *"
                                 value={formularioEditando.titulo}
                                 onChange={(e) => setFormularioEditando({ ...formularioEditando, titulo: e.target.value })}
-                                sx={{ mt: 2, bgcolor: "white", borderRadius: 1 }}
                             />
 
-                            <FormControl fullWidth sx={{ mt: 2, bgcolor: "white", borderRadius: 1 }}>
+                            <FormControl fullWidth sx={{ mt: 2 }}>
                                 <InputLabel id="sector-edit-label">Sector *</InputLabel>
                                 <Select
                                     labelId="sector-edit-label"
@@ -513,7 +478,7 @@ const FormularioChecklistComponent = () => {
                                         label="Código *"
                                         value={formularioEditando.codigo}
                                         onChange={(e) => setFormularioEditando({ ...formularioEditando, codigo: e.target.value })}
-                                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={3}>
@@ -523,7 +488,7 @@ const FormularioChecklistComponent = () => {
                                         label="Versión *"
                                         value={formularioEditando.version}
                                         onChange={(e) => setFormularioEditando({ ...formularioEditando, version: e.target.value })}
-                                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={3}>
@@ -533,7 +498,7 @@ const FormularioChecklistComponent = () => {
                                         label="Ítem"
                                         value={formularioEditando.item}
                                         onChange={(e) => setFormularioEditando({ ...formularioEditando, item: e.target.value })}
-                                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={3}>
@@ -543,7 +508,7 @@ const FormularioChecklistComponent = () => {
                                         label="Aspecto a Verificar"
                                         value={formularioEditando.aspecto_a_verificar}
                                         onChange={(e) => setFormularioEditando({ ...formularioEditando, aspecto_a_verificar: e.target.value })}
-                                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={3}>
@@ -553,7 +518,7 @@ const FormularioChecklistComponent = () => {
                                         label="Bueno"
                                         value={formularioEditando.bueno}
                                         onChange={(e) => setFormularioEditando({ ...formularioEditando, bueno: e.target.value })}
-                                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={3}>
@@ -563,7 +528,7 @@ const FormularioChecklistComponent = () => {
                                         label="Malo"
                                         value={formularioEditando.malo}
                                         onChange={(e) => setFormularioEditando({ ...formularioEditando, malo: e.target.value })}
-                                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={3}>
@@ -573,12 +538,12 @@ const FormularioChecklistComponent = () => {
                                         label="Comentarios"
                                         value={formularioEditando.comentarios}
                                         onChange={(e) => setFormularioEditando({ ...formularioEditando, comentarios: e.target.value })}
-                                        sx={{ bgcolor: "white", borderRadius: 1 }}
+
                                     />
                                 </Grid>
                             </Grid>
 
-                            <FormControl fullWidth sx={{ mt: 2, bgcolor: "white", borderRadius: 1 }}>
+                            <FormControl fullWidth sx={{ mt: 2 }}>
                                 <InputLabel id="estado-edit-label">Estado</InputLabel>
                                 <Select
                                     labelId="estado-edit-label"
@@ -596,43 +561,31 @@ const FormularioChecklistComponent = () => {
                         </>
                     )}
                 </DialogContent>
-                <DialogActions sx={{ bgcolor: "#1E293B" }}>
+                <DialogActions >
                     <Button
-                        onClick={() => setDialogoAbierto(false)}
-                        sx={{ color: "white", '&:hover': { bgcolor: "#334155" } }}
-                    >
+                        onClick={() => setDialogoAbierto(false)}>
                         Cancelar
                     </Button>
                     <Button
                         onClick={handleEditarFormulario}
-                        sx={{
-                            bgcolor: "#2759ac",
-                            color: "white",
-                            '&:hover': { bgcolor: "#1e3d8b" }
-                        }}
                     >
                         Guardar
                     </Button>
                 </DialogActions>
             </Dialog>
-
-            {/* Diálogo de Confirmación de Eliminación */}
             <Dialog open={confirmacionAbierta} onClose={() => setConfirmacionAbierta(false)}>
                 <DialogTitle sx={{ bgcolor: "#1E293B", color: "white" }}>Confirmar Eliminación</DialogTitle>
                 <DialogContent sx={{ bgcolor: "#1E293B", color: "white" }}>
                     ¿Estás seguro de que deseas eliminar este formulario?
                 </DialogContent>
-                <DialogActions sx={{ bgcolor: "#1E293B" }}>
+                <DialogActions >
                     <Button
                         onClick={() => setConfirmacionAbierta(false)}
-                        sx={{ color: "white", '&:hover': { bgcolor: "#334155" } }}
                     >
                         Cancelar
                     </Button>
                     <Button
                         onClick={confirmarEliminacion}
-                        color="error"
-                        sx={{ '&:hover': { bgcolor: "#7f1d1d" } }}
                     >
                         Eliminar
                     </Button>

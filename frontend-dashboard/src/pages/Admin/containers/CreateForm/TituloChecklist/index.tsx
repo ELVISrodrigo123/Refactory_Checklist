@@ -157,28 +157,19 @@ const TituloChecklist = () => {
     };
 
     return (
-        <Box sx={{ flex: 1, bgcolor: "#1E293B", p: 3, borderRadius: 2, color: "white" }}>
+        <Box >
             <Typography variant="h4" sx={{ mb: 3, textAlign: 'center', fontWeight: 'bold' }}>
                 Gestión de Títulos de Checklist
             </Typography>
 
             {/* Sección de creación */}
-            <Paper sx={{ p: 3, mb: 3, bgcolor: '#334155' }}>
+            <Paper sx={{ p: 3, mb: 3}}>
                 <Typography variant="h6" sx={{ mb: 2 }}>
                     Crear Nuevo Título
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
-                        <TextField
-                            fullWidth
-                            label="Nombre del Título *"
-                            value={nuevoTitulo.nombre}
-                            onChange={(e) => actualizarNuevoTitulo("nombre", e.target.value)}
-                            sx={{ bgcolor: "white", borderRadius: 1 }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <FormControl fullWidth sx={{ bgcolor: "white", borderRadius: 1 }}>
+                    <FormControl fullWidth >
                             <InputLabel>Formulario *</InputLabel>
                             <Select
                                 value={nuevoTitulo.formulario}
@@ -194,13 +185,20 @@ const TituloChecklist = () => {
                             </Select>
                         </FormControl>
                     </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            fullWidth
+                            label="Nombre del Título *"
+                            value={nuevoTitulo.nombre}
+                            onChange={(e) => actualizarNuevoTitulo("nombre", e.target.value)}
+                        />
+                    </Grid>
                     <Grid item xs={12}>
                         <Button
                             variant="contained"
                             fullWidth
                             onClick={handleCrearTitulo}
                             disabled={!nuevoTitulo.isValid()}
-                            sx={{ height: '50px', bgcolor: '#2759ac', '&:hover': { bgcolor: '#1e3d8b' } }}
                         >
                             Crear Título
                         </Button>
