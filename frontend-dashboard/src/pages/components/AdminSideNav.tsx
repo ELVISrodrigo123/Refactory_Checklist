@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import ArchiveIcon from '@mui/icons-material/Archive';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import { Avatar, Box, Typography, useTheme } from "@mui/material";
-import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
-import { useProSidebar } from "react-pro-sidebar";
+import { Avatar, Box, Divider, IconButton, Typography } from "@mui/material";
+import { Menu, MenuItem, Sidebar, sidebarClasses } from "react-pro-sidebar";
 import Link from "next/link";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const AdminSideNav: React.FC = () => {
-    const { collapsed } = useProSidebar();
+    const [collapsed, setCollapsed] = useState(false);
 
 
     const menuItems = [
@@ -87,37 +88,60 @@ const AdminSideNav: React.FC = () => {
     ];
 
     return (
-        <Sidebar>
-            <Box sx={styles.avatarContainer}>
-                <Avatar sx={styles.avatar} alt="Admin" src="/assets/img/admin.png" />
-                {!collapsed && (
-                    <>
-                        <Typography >
-                            Jefa de Operaciones
-                        </Typography>
-                        <Typography variant="overline">UsuarioAdmin</Typography>
-                    </>
-                )}
-            </Box>
-            <Menu>
-                {menuItems.map(({ path, label, icon }, index) => (
-                    <MenuItem
-                        key={`${path}-${index}`}
-                        className="icon-sidebar"
-                        component={<Link href={path} passHref />}
-                    >
-                        <Box
-                            sx={{ display: "flex" }}
-                        >
-                            <Box sx={{ mr: 2 }}>{icon}</Box>
-                            <Typography  >
-                                {label}
+        <Box sx={{ height: "100vh", display: {sm: "block", xs: "none"} }}>
+            <Sidebar rootStyles={{
+                [`.${sidebarClasses.container}`]: {
+                    backgroundColor: 'transparent',
+                    position: 'relative',
+                    zIndex: 1,
+                }
+            }}
+                collapsed={collapsed}
+            >
+                <IconButton
+                    onClick={() => (collapsed ? setCollapsed(false) : setCollapsed(true))}
+                    sx={{
+                        position: "absolute",
+                        top: 10,
+                        right: 10,
+                        zIndex: 2,
+                        color: "#5569ff",
+                    }}
+                >
+                    {collapsed ? <ArrowForwardIosIcon /> : <ArrowBackIosNewIcon />}
+                </IconButton>
+                <Box sx={styles.avatarContainer}>
+                    <Avatar sx={styles.avatar} alt="Admin" src="/assets/img/admin.png" />
+                    {!collapsed && (
+                        <>
+                            <Typography >
+                                Jefa de Operaciones
                             </Typography>
-                        </Box>
-                    </MenuItem>
-                ))}
-            </Menu>
-        </Sidebar>
+                            <Typography variant="overline">UsuarioAdmin</Typography>
+                        </>
+                    )}
+                </Box>
+                <Divider />
+                <Menu>
+                    {menuItems.map(({ path, label, icon }, index) => (
+                        <MenuItem
+                            key={`${path}-${index}`}
+                            className="icon-sidebar"
+                            component={<Link href={path} passHref />}
+                        >
+                            <Box
+                                sx={{ display: "flex" }}
+                            >
+                                <Box sx={{ mr: 2 }}>{icon}</Box>
+                                <Typography  >
+                                    {label}
+                                </Typography>
+                            </Box>
+                        </MenuItem>
+                    ))}
+                </Menu>
+            </Sidebar>
+        </Box>
     );
 };
 

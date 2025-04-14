@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import theme from "@/config/theme";
-import AdminSideNav from "./AdminSideNav";
+// import AdminSideNav from "./AdminSideNav";
 import { AdminAppHeader } from "./AdminAppHeader";
-import { ProSidebarProvider } from "react-pro-sidebar";
+import {SideNav, menuItems} from "../../components/SideNav"
 
 interface LayoutProps {
     children: ReactNode;
@@ -11,20 +11,17 @@ interface LayoutProps {
 
 const AdminLayout: React.FC<LayoutProps> = ({ children }) => {
     return (
-        <React.Fragment>
-            <ProSidebarProvider>
-                <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <AdminAppHeader />
-                    <Box sx={styles.container}>
-                        <AdminSideNav />
-                        <Box component={"main"} sx={styles.mainSection}>
-                            {children}
-                        </Box>
-                    </Box>
-                </ThemeProvider>
-            </ProSidebarProvider>
-        </React.Fragment>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <AdminAppHeader />
+            <Box sx={styles.container}>
+                {/* <AdminSideNav /> */}
+                <SideNav items={menuItems} isMobile={false} />
+                <Box component={"main"} sx={styles.mainSection}>
+                    {children}
+                </Box>
+            </Box>
+        </ThemeProvider>
     );
 };
 
