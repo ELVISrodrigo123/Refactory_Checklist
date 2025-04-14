@@ -23,14 +23,14 @@ import {
 } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { getFormularios } from "../../../services/Formulario";
-import { getSectores } from "../../../services/Sector";
-import { TareaChecklistService } from "../../../services/TareaChecklistService";
+import { getFormularios } from "../../../../services/Formulario";
+import { getSectores } from "../../../../services/Sector";
+import { TareaChecklistService } from "../../../../services/TareaChecklistService";
 import {
     createCompleteRespuesta,
     deleteRespuesta,
     getRespuestas
-} from '../../../services/RespuestaChecklistService';
+} from '../../../../services/RespuestaChecklistService';
 import InformacionFormulario from "../InforUsers";
 import GenerarPDF from "../GenerarPDF";
 

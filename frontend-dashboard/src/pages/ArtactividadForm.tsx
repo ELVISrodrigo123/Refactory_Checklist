@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Artactividad } from "./services/ArtactividadService";
+import { Artactividad } from "../services/ArtactividadService";
 import { Button, TextField, Box } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import { Avatar, Box, Divider, IconButton, Typography } from "@mui/material";
 import { Menu, Sidebar, sidebarClasses } from "react-pro-sidebar";

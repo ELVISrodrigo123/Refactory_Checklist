@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getPeligrosByActividad } from "../services/Peligro";
-import { Peligro, Actividad } from "../models/Peligro";
+import { getPeligrosByActividad } from "../../services/Peligro";
+import { Peligro, Actividad } from "../../models/Peligro";
 
 interface PeligrosContainerProps {
     actividadId: number;

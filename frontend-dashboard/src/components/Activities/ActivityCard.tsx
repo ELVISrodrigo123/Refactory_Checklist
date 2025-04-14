@@ -10,10 +10,10 @@ import {
     Skeleton
 } from "@mui/material";
 import { VolumeUp, VolumeOff, PlayArrow } from "@mui/icons-material";
-import { Actividad } from '@/pages/models/ActividadModel';
-import { Peligro } from '@/pages/models/Peligro';
-import { Riesgo } from '@/pages/models/Riesgo';
-import { MedidaControl } from '@/pages/models/MedidaControl';
+import { Actividad } from '@/models/ActividadModel';
+import { Peligro } from '@/models/Peligro';
+import { Riesgo } from '@/models/Riesgo';
+import { MedidaControl } from '@/models/MedidaControl';
 
 interface ActivityCardProps {
     activities: Actividad[];
