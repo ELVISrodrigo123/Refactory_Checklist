@@ -207,7 +207,7 @@ const TituloChecklist = () => {
             </Paper>
 
             {/* Barra de búsqueda */}
-            <Paper sx={{ p: 2, mb: 3, bgcolor: '#334155' }}>
+            <Paper sx={{ p: 2, mb: 3}}>
                 <Grid container alignItems="center" spacing={2}>
                     <Grid item xs={12} sm={8} md={9}>
                         <TextField
@@ -220,15 +220,9 @@ const TituloChecklist = () => {
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
-                                        <SearchIcon sx={{ color: 'white' }} />
+                                        <SearchIcon />
                                     </InputAdornment>
                                 ),
-                                sx: {
-                                    color: 'white',
-                                    '& .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: '#64748B'
-                                    }
-                                }
                             }}
                         />
                     </Grid>
@@ -237,7 +231,7 @@ const TituloChecklist = () => {
                             fullWidth
                             variant="contained"
                             onClick={handleBuscar}
-                            sx={{ height: '56px', bgcolor: '#2759ac', '&:hover': { bgcolor: '#1e3d8b' } }}
+                            sx={{ height: '50px' }}
                         >
                             Buscar
                         </Button>
@@ -249,7 +243,6 @@ const TituloChecklist = () => {
                         <Chip
                             label={`${titulosFiltrados.length} resultados`}
                             color="info"
-                            sx={{ color: 'white' }}
                         />
                         <Button
                             variant="text"
@@ -258,7 +251,6 @@ const TituloChecklist = () => {
                                 cargarTitulos();
                             }}
                             startIcon={<RefreshIcon />}
-                            sx={{ color: 'white' }}
                         >
                             Limpiar
                         </Button>
@@ -272,7 +264,7 @@ const TituloChecklist = () => {
                     <CircularProgress />
                 </Box>
             ) : titulosFiltrados.length === 0 ? (
-                <Paper sx={{ p: 3, textAlign: 'center', bgcolor: '#334155' }}>
+                <Paper >
                     <Typography>
                         {terminoBusqueda ?
                             "No se encontraron títulos" :
@@ -283,13 +275,7 @@ const TituloChecklist = () => {
                 <>
                     <Grid container spacing={isMobile ? 0 : 2}>
                         <Grid item xs={12} md={isMobile ? 12 : 6}>
-                            <List sx={{
-                                maxHeight: '60vh',
-                                overflowY: 'auto',
-                                bgcolor: '#334155',
-                                borderRadius: 2,
-                                p: 1
-                            }}>
+                            <List >
                                 {titulosPagina.slice(0, Math.ceil(titulosPagina.length / (isMobile ? 1 : 2))).map((titulo) => (
                                     <React.Fragment key={titulo.id}>
                                         <ListItem
@@ -302,7 +288,6 @@ const TituloChecklist = () => {
                                                             setTituloEditando(titulo);
                                                             setDialogoAbierto(true);
                                                         }}
-                                                        sx={{ color: "white" }}
                                                     >
                                                         <EditIcon />
                                                     </IconButton>
@@ -310,7 +295,6 @@ const TituloChecklist = () => {
                                                         edge="end"
                                                         aria-label="eliminar"
                                                         onClick={() => handleEliminarTitulo(titulo.id)}
-                                                        sx={{ color: "white" }}
                                                     >
                                                         <DeleteIcon />
                                                     </IconButton>
@@ -319,19 +303,18 @@ const TituloChecklist = () => {
                                         >
                                             <ListItemText
                                                 primary={
-                                                    <Typography sx={{ fontWeight: 'bold' }}>
+                                                    <Typography sx={{ fontWeight: 'bold',py:1 }}>
                                                         {titulo.nombre}
                                                     </Typography>
                                                 }
                                                 secondary={
-                                                    <Typography variant="body2" sx={{ color: '#e2e8f0' }}>
+                                                    <Typography variant="body2">
                                                         Formulario: {formularios.find(f => f.id === titulo.formulario)?.titulo || 'Desconocido'}
                                                     </Typography>
                                                 }
-                                                sx={{ color: 'white' }}
                                             />
                                         </ListItem>
-                                        <Divider sx={{ bgcolor: '#64748B' }} />
+                                        <Divider />
                                     </React.Fragment>
                                 ))}
                             </List>
@@ -339,13 +322,7 @@ const TituloChecklist = () => {
 
                         {!isMobile && (
                             <Grid item xs={12} md={6}>
-                                <List sx={{
-                                    maxHeight: '60vh',
-                                    overflowY: 'auto',
-                                    bgcolor: '#334155',
-                                    borderRadius: 2,
-                                    p: 1
-                                }}>
+                                <List>
                                     {titulosPagina.slice(Math.ceil(titulosPagina.length / 2)).map((titulo) => (
                                         <React.Fragment key={titulo.id}>
                                             <ListItem
@@ -358,7 +335,6 @@ const TituloChecklist = () => {
                                                                 setTituloEditando(titulo);
                                                                 setDialogoAbierto(true);
                                                             }}
-                                                            sx={{ color: "white" }}
                                                         >
                                                             <EditIcon />
                                                         </IconButton>
@@ -366,7 +342,6 @@ const TituloChecklist = () => {
                                                             edge="end"
                                                             aria-label="eliminar"
                                                             onClick={() => handleEliminarTitulo(titulo.id)}
-                                                            sx={{ color: "white" }}
                                                         >
                                                             <DeleteIcon />
                                                         </IconButton>
@@ -375,19 +350,18 @@ const TituloChecklist = () => {
                                             >
                                                 <ListItemText
                                                     primary={
-                                                        <Typography sx={{ fontWeight: 'bold' }}>
+                                                        <Typography sx={{ fontWeight: 'bold',p:1 }}>
                                                             {titulo.nombre}
                                                         </Typography>
                                                     }
                                                     secondary={
-                                                        <Typography variant="body2" sx={{ color: '#e2e8f0' }}>
+                                                        <Typography >
                                                             Formulario: {formularios.find(f => f.id === titulo.formulario)?.titulo || 'Desconocido'}
                                                         </Typography>
                                                     }
-                                                    sx={{ color: 'white' }}
                                                 />
                                             </ListItem>
-                                            <Divider sx={{ bgcolor: '#64748B' }} />
+                                            <Divider />
                                         </React.Fragment>
                                     ))}
                                 </List>
@@ -402,15 +376,6 @@ const TituloChecklist = () => {
                                 count={totalPaginas}
                                 page={paginaActual}
                                 onChange={(_, page) => setPaginaActual(page)}
-                                color="primary"
-                                sx={{
-                                    '& .MuiPaginationItem-root': {
-                                        color: 'white'
-                                    },
-                                    '& .Mui-selected': {
-                                        bgcolor: '#2759ac'
-                                    }
-                                }}
                             />
                         </Box>
                     )}
@@ -419,17 +384,17 @@ const TituloChecklist = () => {
 
             {/* Diálogos */}
             <Dialog open={dialogoAbierto} onClose={() => setDialogoAbierto(false)} fullWidth maxWidth="sm">
-                <DialogTitle sx={{ bgcolor: '#334155', color: 'white' }}>Editar Título</DialogTitle>
-                <DialogContent sx={{ bgcolor: '#334155' }}>
+                <DialogTitle >Editar Título</DialogTitle>
+                <DialogContent >
                     <TextField
                         fullWidth
                         label="Nombre del Título"
                         value={tituloEditando?.nombre || ""}
                         onChange={(e) => actualizarTituloEditando("nombre", e.target.value)}
-                        sx={{ mt: 2, bgcolor: "white", borderRadius: 1 }}
+                        sx={{ mt: 2}}
                         required
                     />
-                    <FormControl fullWidth sx={{ mt: 2, bgcolor: "white", borderRadius: 1 }}>
+                    <FormControl fullWidth sx={{ mt: 2}}>
                         <InputLabel>Formulario</InputLabel>
                         <Select
                             value={tituloEditando?.formulario || 0}
@@ -446,17 +411,15 @@ const TituloChecklist = () => {
                         </Select>
                     </FormControl>
                 </DialogContent>
-                <DialogActions sx={{ bgcolor: '#334155' }}>
+                <DialogActions >
                     <Button
                         onClick={() => setDialogoAbierto(false)}
-                        sx={{ color: 'white', '&:hover': { bgcolor: '#64748B' } }}
                     >
                         Cancelar
                     </Button>
                     <Button
                         onClick={handleEditarTitulo}
                         disabled={!tituloEditando?.isValid()}
-                        sx={{ bgcolor: '#2759ac', color: 'white', '&:hover': { bgcolor: '#1e3d8b' } }}
                     >
                         Guardar
                     </Button>
@@ -464,23 +427,20 @@ const TituloChecklist = () => {
             </Dialog>
 
             <Dialog open={confirmacionAbierta} onClose={cancelarEliminacion} fullWidth maxWidth="sm">
-                <DialogTitle sx={{ bgcolor: '#334155', color: 'white' }}>
+                <DialogTitle >
                     ¿Confirmar eliminación?
                 </DialogTitle>
-                <DialogContent sx={{ bgcolor: '#334155', color: 'white' }}>
+                <DialogContent>
                     Esta acción no se puede deshacer. ¿Estás seguro de eliminar este título?
                 </DialogContent>
-                <DialogActions sx={{ bgcolor: '#334155' }}>
+                <DialogActions>
                     <Button
                         onClick={cancelarEliminacion}
-                        sx={{ color: 'white', '&:hover': { bgcolor: '#64748B' } }}
                     >
                         Cancelar
                     </Button>
                     <Button
                         onClick={confirmarEliminacion}
-                        color="error"
-                        sx={{ '&:hover': { bgcolor: '#7f1d1d' } }}
                     >
                         Eliminar
                     </Button>

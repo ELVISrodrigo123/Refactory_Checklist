@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const AdminSideNav: React.FC = () => {
     const { collapsed } = useProSidebar();
-    const theme = useTheme();
+
 
     const menuItems = [
         {
@@ -87,23 +87,12 @@ const AdminSideNav: React.FC = () => {
     ];
 
     return (
-        <Sidebar
-            style={{
-                height: "auto",
-                backgroundImage: `linear-gradient(rgba(49, 97, 255, 0.5), rgba(57, 43, 255, 0.5)), url('/assets/img/navbar.png')`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundColor: theme.palette.background.default,
-            }}
-            breakPoint="md"
-            className="background-navbar"
-        >
+        <Sidebar>
             <Box sx={styles.avatarContainer}>
                 <Avatar sx={styles.avatar} alt="Admin" src="/assets/img/admin.png" />
                 {!collapsed && (
                     <>
-                        <Typography variant="body2" sx={styles.yourDescription}>
+                        <Typography >
                             Jefa de Operaciones
                         </Typography>
                         <Typography variant="overline">UsuarioAdmin</Typography>
@@ -118,15 +107,10 @@ const AdminSideNav: React.FC = () => {
                         component={<Link href={path} passHref />}
                     >
                         <Box
-                            sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                width: "100%",
-                                color: "#5569ff",
-                            }}
+                            sx={{ display: "flex" }}
                         >
-                            <Box sx={{ mr: 2, color: "#5569ff" }}>{icon}</Box>
-                            <Typography variant="body2" sx={{ color: "#5569ff", textDecoration: "none" }}>
+                            <Box sx={{ mr: 2 }}>{icon}</Box>
+                            <Typography  >
                                 {label}
                             </Typography>
                         </Box>

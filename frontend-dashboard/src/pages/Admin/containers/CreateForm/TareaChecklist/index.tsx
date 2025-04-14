@@ -4,7 +4,8 @@ import {
     TableHead, TableRow, Paper, IconButton, Typography, Dialog,
     DialogTitle, DialogContent, DialogActions, FormControl, InputLabel,
     Select, MenuItem, CircularProgress, Accordion, AccordionSummary,
-    AccordionDetails, Chip, InputAdornment
+    AccordionDetails, Chip, InputAdornment,
+    Card
 } from '@mui/material';
 import { Edit, Delete, Add, ExpandMore, Search } from '@mui/icons-material';
 import { TareaChecklist } from '@/pages/models/TareaChecklistModel';
@@ -140,25 +141,20 @@ const TareaChecklistCRUD = () => {
     };
 
     return (
-        <Box sx={{
-            p: 3,
-            bgcolor: '#334155',
-            minHeight: '100vh',
-            color: 'white'
-        }}>
+        <Box>
             <Typography variant="h4" gutterBottom sx={{ mb: 3, fontWeight: 'bold' }}>
                 Gestión de Checklist
             </Typography>
 
             {/* Filtros superiores */}
-            <Box sx={{ 
-                display: 'flex', 
-                gap: 2, 
+            <Box sx={{
+                display: 'flex',
+                gap: 2,
                 mb: 3,
                 flexWrap: 'wrap'
             }}>
                 {/* Filtro por formulario */}
-                <FormControl sx={{ minWidth: 200, bgcolor: 'white', borderRadius: 1 }}>
+                <FormControl sx={{ minWidth: 400 }}>
                     <InputLabel>Filtrar por formulario</InputLabel>
                     <Select
                         value={formularioFiltro || ''}
@@ -178,19 +174,7 @@ const TareaChecklistCRUD = () => {
 
                 {/* Barra de búsqueda */}
                 <TextField
-                    sx={{ 
-                        flexGrow: 1,
-                        bgcolor: 'white',
-                        borderRadius: 1,
-                        '& .MuiOutlinedInput-root': {
-                            '& fieldset': {
-                                borderColor: 'transparent'
-                            },
-                            '&:hover fieldset': {
-                                borderColor: 'transparent'
-                            }
-                        }
-                    }}
+                    sx={{ flexGrow: 1, }}
                     variant="outlined"
                     placeholder="Buscar títulos..."
                     value={busqueda}
@@ -206,20 +190,14 @@ const TareaChecklistCRUD = () => {
             </Box>
 
             {/* Formulario para crear tarea */}
-            <Box sx={{
-                mb: 4,
-                p: 3,
-                bgcolor: 'white',
-                borderRadius: 2,
-                boxShadow: 3
-            }}>
-                <Typography variant="h6" sx={{ mb: 2, color: '#334155' }}>
+            <Box >
+                <Typography variant="h6" sx={{ mb: 2 }}>
                     Agregar Nueva Tarea
                 </Typography>
 
                 <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                     {/* Selector de formulario para creación */}
-                    <FormControl sx={{ minWidth: 200 }}>
+                    <FormControl sx={{ minWidth: 400 }}>
                         <InputLabel>Formulario</InputLabel>
                         <Select
                             value={formularioFiltro || ''}
@@ -274,12 +252,6 @@ const TareaChecklistCRUD = () => {
                         startIcon={<Add />}
                         onClick={handleCrearTarea}
                         disabled={!descripcion.trim() || !tituloSeleccionado}
-                        sx={{
-                            height: '56px',
-                            bgcolor: '#4f46e5',
-                            '&:hover': { bgcolor: '#4338ca' },
-                            '&:disabled': { bgcolor: '#9ca3af' }
-                        }}
                     >
                         Agregar
                     </Button>
@@ -289,209 +261,168 @@ const TareaChecklistCRUD = () => {
             {/* Contenido principal */}
             {cargando ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
-                    <CircularProgress sx={{ color: 'white' }} />
+                    <CircularProgress />
                 </Box>
             ) : (
-                <Box sx={{ maxHeight: 'calc(100vh - 320px)', overflowY: 'auto' }}>
-                {busqueda || formularioFiltro ? (
-                    // Vista de búsqueda/filtrada
-                    titulosFiltrados.length > 0 ? (
-                        titulosFiltrados.map((titulo: any) => {
-                            const formularioPadre = estructura.formularios.find(
-                                (f: any) => f.titulos.some((t: any) => t.id === titulo.id)
-                            );
-                            return (
-                                <Accordion key={titulo.id} sx={{ mb: 2 }}>
+                <Box sx={{ maxHeight: 'calc(100vh - 320px)', overflowY: 'auto', mt: 5 }}>
+                    {busqueda || formularioFiltro ? (
+                        // Vista de búsqueda/filtrada
+                        titulosFiltrados.length > 0 ? (
+                            titulosFiltrados.map((titulo: any) => {
+                                const formularioPadre = estructura.formularios.find(
+                                    (f: any) => f.titulos.some((t: any) => t.id === titulo.id)
+                                );
+                                return (
+                                    <Accordion key={titulo.id} sx={{ mb: 2 }}>
+                                        <AccordionSummary expandIcon={<ExpandMore />}>
+                                            <Typography sx={{ fontWeight: 'bold' }}>
+                                                {formularioPadre?.titulo} → {titulo.nombre}
+                                            </Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <TableContainer component={Paper}>
+                                                <Table>
+                                                    <TableHead>
+                                                        <TableRow>
+                                                            <TableCell sx={{ fontWeight: 'bold' }}>Descripción</TableCell>
+                                                            <TableCell sx={{ fontWeight: 'bold', width: '120px' }}>Acciones</TableCell>
+                                                        </TableRow>
+                                                    </TableHead>
+                                                    <TableBody>
+                                                        {titulo.tareas.length === 0 ? (
+                                                            <TableRow>
+                                                                <TableCell colSpan={2} align="center">
+                                                                    No hay tareas
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        ) : (
+                                                            titulo.tareas.map((tarea: any) => (
+                                                                <TableRow key={tarea.id}>
+                                                                    <TableCell>{tarea.descripcion}</TableCell>
+                                                                    <TableCell>
+                                                                        <IconButton
+                                                                            onClick={() => {
+                                                                                setTareaEditando(tarea);
+                                                                                setDialogoAbierto(true);
+                                                                            }}
+                                                                        >
+                                                                            <Edit />
+                                                                        </IconButton>
+                                                                        <IconButton
+                                                                            onClick={() => {
+                                                                                setIdAEliminar(tarea.id);
+                                                                                setConfirmacionAbierta(true);
+                                                                            }}
+                                                                        >
+                                                                            <Delete />
+                                                                        </IconButton>
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            ))
+                                                        )}
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                );
+                            })
+                        ) : (
+                            <Box >
+                                <Typography>No se encontraron resultados</Typography>
+                            </Box>
+                        )
+                    ) : (
+                        // Vista completa jerárquica
+                        estructura?.formularios.map((formulario: any) => (
+                            formulario.titulos.length > 0 && (
+                                <Accordion component={Card} variant='outlined' key={formulario.id} defaultExpanded>
                                     <AccordionSummary expandIcon={<ExpandMore />}>
-                                        <Typography sx={{ color: '#334155', fontWeight: 'bold' }}>
-                                            {formularioPadre?.titulo} → {titulo.nombre}
+                                        <Typography sx={{
+                                            fontWeight: 'bold',
+
+                                            fontSize: '1.1rem'
+                                        }}>
+                                            {formulario.titulo}
                                         </Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
-                                        <TableContainer component={Paper}>
-                                            <Table>
-                                                <TableHead>
-                                                    <TableRow sx={{ bgcolor: '#e0e0e0' }}>
-                                                        <TableCell sx={{ fontWeight: 'bold' }}>Descripción</TableCell>
-                                                        <TableCell sx={{ fontWeight: 'bold', width: '120px' }}>Acciones</TableCell>
-                                                    </TableRow>
-                                                </TableHead>
-                                                <TableBody>
-                                                    {titulo.tareas.length === 0 ? (
-                                                        <TableRow>
-                                                            <TableCell colSpan={2} align="center">
-                                                                No hay tareas
-                                                            </TableCell>
-                                                        </TableRow>
-                                                    ) : (
-                                                        titulo.tareas.map((tarea: any) => (
-                                                            <TableRow key={tarea.id}>
-                                                                <TableCell>{tarea.descripcion}</TableCell>
-                                                                <TableCell>
-                                                                    <IconButton
-                                                                        onClick={() => {
-                                                                            setTareaEditando(tarea);
-                                                                            setDialogoAbierto(true);
-                                                                        }}
-                                                                        sx={{
-                                                                            color: '#2563eb',
-                                                                            '&:hover': {
-                                                                                color: '#1d4ed8',
-                                                                                bgcolor: 'rgba(37, 99, 235, 0.1)',
-                                                                                transform: 'scale(1.1)'
-                                                                            },
-                                                                            transition: 'all 0.2s ease'
-                                                                        }}
-                                                                    >
-                                                                        <Edit />
-                                                                    </IconButton>
-                                                                    <IconButton
-                                                                        onClick={() => {
-                                                                            setIdAEliminar(tarea.id);
-                                                                            setConfirmacionAbierta(true);
-                                                                        }}
-                                                                        sx={{
-                                                                            color: '#dc2626',
-                                                                            '&:hover': {
-                                                                                color: '#b91c1c',
-                                                                                bgcolor: 'rgba(220, 38, 38, 0.1)',
-                                                                                transform: 'scale(1.1)'
-                                                                            },
-                                                                            transition: 'all 0.2s ease'
-                                                                        }}
-                                                                    >
-                                                                        <Delete />
-                                                                    </IconButton>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        ))
-                                                    )}
-                                                </TableBody>
-                                            </Table>
-                                        </TableContainer>
-                                    </AccordionDetails>
-                                </Accordion>
-                            );
-                        })
-                    ) : (
-                        <Box sx={{
-                            p: 3,
-                            bgcolor: 'rgba(255, 255, 255, 0.1)',
-                            borderRadius: 2,
-                            textAlign: 'center'
-                        }}>
-                            <Typography>No se encontraron resultados</Typography>
-                        </Box>
-                    )
-                ) : (
-                    // Vista completa jerárquica
-                    estructura?.formularios.map((formulario: any) => (
-                        formulario.titulos.length > 0 && (
-                            <Accordion key={formulario.id} defaultExpanded sx={{ mb: 3 }}>
-                                <AccordionSummary expandIcon={<ExpandMore />}>
-                                    <Typography sx={{
-                                        fontWeight: 'bold',
-                                        color: '#334155',
-                                        fontSize: '1.1rem'
-                                    }}>
-                                        {formulario.titulo}
-                                    </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    {formulario.titulos.map((titulo: any) => (
-                                        <Accordion
-                                            key={titulo.id}
-                                            sx={{ mb: 2, bgcolor: '#f8fafc' }}
-                                        >
-                                            <AccordionSummary expandIcon={<ExpandMore />}>
-                                                <Box sx={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    width: '100%'
-                                                }}>
-                                                    <Typography sx={{
-                                                        fontWeight: 'medium',
-                                                        color: '#334155'
+                                        {formulario.titulos.map((titulo: any) => (
+                                            <Accordion
+                                                component={Card} variant='outlined'
+                                                key={titulo.id}
+                                            >
+                                                <AccordionSummary expandIcon={<ExpandMore />}>
+                                                    <Box sx={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        width: '100%'
                                                     }}>
-                                                        {titulo.nombre}
-                                                    </Typography>
-                                                    <Chip
-                                                        label={`${titulo.tareas.length} tareas`}
-                                                        size="small"
-                                                        sx={{ ml: 2 }}
-                                                    />
-                                                </Box>
-                                            </AccordionSummary>
-                                            <AccordionDetails>
-                                                <TableContainer component={Paper}>
-                                                    <Table>
-                                                        <TableHead>
-                                                            <TableRow sx={{ bgcolor: '#e0e0e0' }}>
-                                                                <TableCell sx={{ fontWeight: 'bold' }}>Descripción</TableCell>
-                                                                <TableCell sx={{ fontWeight: 'bold', width: '120px' }}>Acciones</TableCell>
-                                                            </TableRow>
-                                                        </TableHead>
-                                                        <TableBody>
-                                                            {titulo.tareas.length === 0 ? (
-                                                                <TableRow>
-                                                                    <TableCell colSpan={2} align="center">
-                                                                        No hay tareas registradas
-                                                                    </TableCell>
+                                                        <Typography sx={{
+                                                            fontWeight: 'medium',
+                                                            color: '#334155'
+                                                        }}>
+                                                            {titulo.nombre}
+                                                        </Typography>
+                                                        <Chip
+                                                            label={`${titulo.tareas.length} tareas`}
+                                                            size="small"
+                                                            sx={{ ml: 2 }}
+                                                        />
+                                                    </Box>
+                                                </AccordionSummary>
+                                                <AccordionDetails>
+                                                    <TableContainer component={Paper}>
+                                                        <Table>
+                                                            <TableHead>
+                                                                <TableRow sx={{}}>
+                                                                    <TableCell sx={{ fontWeight: 'bold' }}>Descripción</TableCell>
+                                                                    <TableCell sx={{ fontWeight: 'bold', width: '120px' }}>Acciones</TableCell>
                                                                 </TableRow>
-                                                            ) : (
-                                                                titulo.tareas.map((tarea: any) => (
-                                                                    <TableRow key={tarea.id}>
-                                                                        <TableCell>{tarea.descripcion}</TableCell>
-                                                                        <TableCell>
-                                                                            <IconButton
-                                                                                onClick={() => {
-                                                                                    setTareaEditando(tarea);
-                                                                                    setDialogoAbierto(true);
-                                                                                }}
-                                                                                sx={{
-                                                                                    color: '#2563eb',
-                                                                                    '&:hover': {
-                                                                                        color: '#1d4ed8',
-                                                                                        bgcolor: 'rgba(37, 99, 235, 0.1)',
-                                                                                        transform: 'scale(1.1)'
-                                                                                    },
-                                                                                    transition: 'all 0.2s ease'
-                                                                                }}
-                                                                            >
-                                                                                <Edit />
-                                                                            </IconButton>
-                                                                            <IconButton
-                                                                                onClick={() => {
-                                                                                    setIdAEliminar(tarea.id);
-                                                                                    setConfirmacionAbierta(true);
-                                                                                }}
-                                                                                sx={{
-                                                                                    color: '#dc2626',
-                                                                                    '&:hover': {
-                                                                                        color: '#b91c1c',
-                                                                                        bgcolor: 'rgba(220, 38, 38, 0.1)',
-                                                                                        transform: 'scale(1.1)'
-                                                                                    },
-                                                                                    transition: 'all 0.2s ease'
-                                                                                }}
-                                                                            >
-                                                                                <Delete />
-                                                                            </IconButton>
+                                                            </TableHead>
+                                                            <TableBody>
+                                                                {titulo.tareas.length === 0 ? (
+                                                                    <TableRow>
+                                                                        <TableCell colSpan={2} align="center">
+                                                                            No hay tareas registradas
                                                                         </TableCell>
                                                                     </TableRow>
-                                                                ))
-                                                            )}
-                                                        </TableBody>
-                                                    </Table>
-                                                </TableContainer>
-                                            </AccordionDetails>
-                                        </Accordion>
-                                    ))}
-                                </AccordionDetails>
-                            </Accordion>
-                        )
-                    ))
-                )}
+                                                                ) : (
+                                                                    titulo.tareas.map((tarea: any) => (
+                                                                        <TableRow key={tarea.id}>
+                                                                            <TableCell>{tarea.descripcion}</TableCell>
+                                                                            <TableCell>
+                                                                                <IconButton
+                                                                                    onClick={() => {
+                                                                                        setTareaEditando(tarea);
+                                                                                        setDialogoAbierto(true);
+                                                                                    }}
+                                                                                >
+                                                                                    <Edit />
+                                                                                </IconButton>
+                                                                                <IconButton
+                                                                                    onClick={() => {
+                                                                                        setIdAEliminar(tarea.id);
+                                                                                        setConfirmacionAbierta(true);
+                                                                                    }}
+                                                                                >
+                                                                                    <Delete />
+                                                                                </IconButton>
+                                                                            </TableCell>
+                                                                        </TableRow>
+                                                                    ))
+                                                                )}
+                                                            </TableBody>
+                                                        </Table>
+                                                    </TableContainer>
+                                                </AccordionDetails>
+                                            </Accordion>
+                                        ))}
+                                    </AccordionDetails>
+                                </Accordion>
+                            )
+                        ))
+                    )}
                 </Box>
             )}
 
@@ -529,11 +460,10 @@ const TareaChecklistCRUD = () => {
                     )}
                 </DialogContent>
                 <DialogActions>
-                    <Button variant="contained" onClick={() => setDialogoAbierto(false)}>Cancelar</Button>
+                    <Button variant="outlined" onClick={() => setDialogoAbierto(false)}>Cancelar</Button>
                     <Button
                         onClick={handleEditarTarea}
                         variant="contained"
-                        color="primary"
                         disabled={!tareaEditando?.descripcion.trim()}
                     >
                         Guardar
@@ -548,7 +478,7 @@ const TareaChecklistCRUD = () => {
                     ¿Está seguro que desea eliminar esta tarea permanentemente?
                 </DialogContent>
                 <DialogActions>
-                    <Button variant="contained" onClick={() => setConfirmacionAbierta(false)}>Cancelar</Button>
+                    <Button variant="outlined" onClick={() => setConfirmacionAbierta(false)}>Cancelar</Button>
                     <Button
                         onClick={handleEliminarTarea}
                         variant="contained"

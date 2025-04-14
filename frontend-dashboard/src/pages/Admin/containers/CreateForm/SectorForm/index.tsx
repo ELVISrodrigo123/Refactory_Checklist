@@ -98,11 +98,8 @@ const SectorComponent = () => {
             flex: 1, 
             p: 3, 
             m: 3, 
-            borderRadius: 2,
-            backgroundColor: theme.palette.background.paper,
-            boxShadow: theme.shadows[3]
         }}>
-            <Typography variant="h6" sx={{ mb: 2, color: theme.palette.text.primary }}>
+            <Typography variant="h6" sx={{ mb: 2 }}>
                 Gestión de Sectores
             </Typography>
             
@@ -110,12 +107,11 @@ const SectorComponent = () => {
                 variant="contained" 
                 onClick={() => abrirDialogo()}
                 sx={{ mb: 3 }}
-                color="primary"
             >
                 Crear Nuevo Sector
             </Button>
 
-            <Typography variant="h6" sx={{ mt: 4, mb: 2, color: theme.palette.text.primary }}>
+            <Typography variant="h6" sx={{mb:4}}>
                 Sectores Disponibles
             </Typography>
             
@@ -127,27 +123,21 @@ const SectorComponent = () => {
                     <ListItem>
                         <ListItemText 
                             primary="No hay sectores creados." 
-                            primaryTypographyProps={{ color: theme.palette.text.secondary }}
                         />
                     </ListItem>
                 ) : (
                     sectores.map((sector, index) => (
                         <React.Fragment key={sector.id}>
-                            <ListItem sx={{
-                                '&:hover': {
-                                    backgroundColor: theme.palette.action.hover
-                                }
-                            }}>
+                            <ListItem>
                                 <ListItemText 
                                     primary={sector.nombre} 
                                     secondary={sector.descripcion} 
-                                    primaryTypographyProps={{ color: theme.palette.text.primary }}
-                                    secondaryTypographyProps={{ color: theme.palette.text.secondary }}
                                 />
-                                <ListItemSecondaryAction>
+                                <ListItemSecondaryAction sx={{display:'flex',gap:1}}>
                                     <IconButton 
                                         edge="end" 
                                         onClick={() => abrirDialogo(sector)}
+                                        color="warning"
                                     >
                                         <EditIcon />
                                     </IconButton>
@@ -192,7 +182,7 @@ const SectorComponent = () => {
                     />
                 </DialogContent>
                 <DialogActions sx={{ p: 2, borderTop: `1px solid ${theme.palette.divider}` }}>
-                    <Button sx={{ backgroundColor: '#1E293B', color: 'white' }} onClick={cerrarDialogo}>Cancelar</Button>
+                    <Button onClick={cerrarDialogo}>Cancelar</Button>
                     <Button 
                         onClick={manejarAccionSector} 
                         variant="contained"

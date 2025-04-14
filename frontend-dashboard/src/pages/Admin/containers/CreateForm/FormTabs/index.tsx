@@ -21,9 +21,7 @@ const FormTabs = () => {
 
     return (
         <Box sx={{ 
-            p: 2, 
-            minHeight: '100vh',
-            backgroundColor: 'background.paper'
+            p: 2
         }}>
             <Tabs
                 value={tabIndex}
@@ -31,10 +29,7 @@ const FormTabs = () => {
                 variant="fullWidth"
                 sx={{ 
                     mb: 3,
-                    '& .MuiTabs-indicator': {
-                        backgroundColor: 'primary.main',
-                        height: 3
-                    }
+                
                 }}
             >
                 {tabs.map((tab, index) => (
@@ -44,13 +39,7 @@ const FormTabs = () => {
                         sx={{ 
                             textTransform: 'none',
                             fontWeight: 'bold',
-                            minHeight: '48px',
-                            color: tabIndex === index ? 'primary.main' : 'text.secondary',
-                            backgroundColor: tabIndex === index ? '#1E293B' : 'transparent',
-                            '&:hover': {
-                                color: 'primary.main',
-                                backgroundColor: 'rgba(25, 118, 210, 0.04)'
-                            }
+                            minHeight: '48px'
                         }}
                     />
                 ))}
@@ -59,8 +48,7 @@ const FormTabs = () => {
             <Box sx={{ 
                 borderRadius: 1,
                 border: '1px solid',
-                borderColor: 'divider',
-                backgroundColor: 'background.paper'
+                borderColor: 'divider'
             }}>
                 {tabs.map((tab, index) => (
                     <Fade key={index} in={tabIndex === index} timeout={200}>
