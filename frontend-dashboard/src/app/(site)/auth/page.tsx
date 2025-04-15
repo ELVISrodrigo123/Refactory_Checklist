@@ -26,7 +26,7 @@ const LoginForm = () => {
       const { user } = await login(username, password);
       router.push(user.is_superuser ? '/admin' :
         (user.role === 'jefe_area' || user.role === 'capataz') ?
-          '/CapatazDashboard' : '/OperatorDashboard');
+          '/CapatazDashboard' : '/employee');
     } catch (err) {
       setError('Credenciales incorrectas. Verifique sus datos.');
     } finally {

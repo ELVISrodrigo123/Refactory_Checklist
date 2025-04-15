@@ -43,14 +43,11 @@ import {
     Menu as MenuIcon,
     AccountCircle as AccountCircleIcon,
     Person as PersonIcon,
+    SvgIconComponent,
 } from "@mui/icons-material"
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import ViewListIcon from '@mui/icons-material/ViewList';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
-import EditNoteIcon from '@mui/icons-material/EditNote';
 
 
 import { ModernMenuItem } from "./MenuItem"
@@ -75,81 +72,6 @@ const BottomActions = styled(Box)(({ theme }) => ({
     justifyContent: "space-between",
 }))
 
-export const menuItems = [
-    {
-        path: "/admin/containers/CreateExelFile",
-        label: "Subir archivo Excel",
-        icon: ArchiveIcon,
-    },
-    {
-        path: "/admin/containers/ListArt",
-        label: "Lista de ART",
-        icon: ViewListIcon,
-    },
-    {
-        path: "/admin/containers/UserProfile",
-        label: "Crear Usuario",
-        icon: PersonAddAltIcon,
-    },
-    {
-        path: "/admin/containers/ViewProfile",
-        label: "Lista de Personal",
-        icon: SupervisorAccountIcon,
-    },
-    {
-        path: "/admin/containers/CreateForm",
-        label: "Creacion de formularios",
-        icon: ViewListIcon,
-    },
-    {
-        path: "/admin/containers/TableFormulario",
-        label: "Formularios",
-        icon: EditNoteIcon,
-    },
-    {
-        path: "/OperatorDashboard/containers/ChecklistReactivos",
-        label: "Form Domo",
-        icon: EditNoteIcon,
-    },
-    {
-        path: "/OperatorDashboard/containers/ChecklistEspesadores",
-        label: "Form Molienda",
-        icon: EditNoteIcon,
-    },
-    {
-        path: "/OperatorDashboard/containers/ChecklistFiltro",
-        label: "Form Flotacion Plomo",
-        icon: EditNoteIcon,
-    },
-    {
-        path: "/OperatorDashboard/containers/ChecklistFlotacionZinc",
-        label: "Form Flotación Zinc",
-        icon: EditNoteIcon,
-    },
-    {
-        path: "/OperatorDashboard/containers/ChecklistReactivos",
-        label: "Form Reactivos",
-        icon: EditNoteIcon,
-    },
-    {
-        path: "/OperatorDashboard/containers/ChecklistEspesadores",
-        label: "Form Espesadores",
-        icon: EditNoteIcon,
-    },
-    {
-        path: "/OperatorDashboard/containers/ChecklistFiltro",
-        label: "Form Filtros",
-        icon: EditNoteIcon,
-    },
-    {
-        path: "/OperatorDashboard/containers/ChecklistCarguio",
-        label: "Form Carguío",
-        icon: EditNoteIcon,
-    },
-];
-
-// Mock notifications is id, title, description, date, and category(warning, error, info, success)
-// You can use this data to display notifications in the sidebar or any other component
 const mockNotifications = [
     {
         id: 1,
@@ -196,10 +118,15 @@ const mockNotifications = [
 ]
 
 interface ModernSidebarProps {
-    window?: () => Window
+    window?: () => Window,
+    menuItems: {
+        path: string;
+        label: string;
+        icon: SvgIconComponent;
+    }[]
 }
 
-export function ModernSidebar({ window }: ModernSidebarProps) {
+export function ModernSidebar({ window, menuItems }: ModernSidebarProps) {
     const theme = useTheme()
     const pathname = usePathname()
     const [mobileOpen, setMobileOpen] = React.useState(false)

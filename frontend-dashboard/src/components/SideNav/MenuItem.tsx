@@ -42,13 +42,13 @@ const MenuItemContainer = styled(Box)(({ theme }) => ({
   },
 }))
 
-const IconWrapper = styled(Box)(({ theme }) => ({
+const IconWrapper = styled(Box)({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   marginRight: 12,
   color: "inherit",
-}))
+})
 
 const BadgeWrapper = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {

@@ -1,6 +1,7 @@
+"use client";
 import React, { useState } from 'react';
-import { CustomUser } from '../../../../models/UserModel';
-import { createUser } from '../../../../services/UserServices';
+import { CustomUser } from '@/models/UserModel';
+import { createUser } from '@/services/UserServices';
 import {
     TextField, Button, Select, MenuItem, FormControl,
     InputLabel, Box, Grid, Paper, Fade, SelectChangeEvent,
