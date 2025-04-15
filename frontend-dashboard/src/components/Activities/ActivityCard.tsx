@@ -15,7 +15,7 @@ import { Peligro } from '@/models/Peligro';
 import { Riesgo } from '@/models/Riesgo';
 import { MedidaControl } from '@/models/MedidaControl';
 
-interface ActivityCardProps {
+export interface ActivityCardProps {
     activities: Actividad[];
     peligros: { [key: number]: Peligro[] },
     riesgos: { [key: number]: Riesgo[] },

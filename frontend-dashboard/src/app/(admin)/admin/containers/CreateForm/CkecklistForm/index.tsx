@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import {
     Box, TextField, Button, List, ListItem, ListItemText, IconButton, Typography,

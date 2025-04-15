@@ -1,5 +1,5 @@
-import ArtactividadList from "@/components/ArtactividadList";
 import { PageHeader } from "@/components/core/PageHeader";
+import PreviewActivitiesList from "@/components/PreviewActivities";
 import ArtactividadService from "@/services/ArtactividadService";
 import { filterData } from "@/utils/filterData";
 
@@ -18,7 +18,7 @@ const Chancado = async () => {
                 subtitle="Welcome to the Chancado area"
             />
 
-            <ArtactividadList
+            <PreviewActivitiesList
                 artactividades={actividadesFiltradas}
             />
         </div>

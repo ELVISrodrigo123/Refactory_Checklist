@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 import {
     Box, Paper, Table, TableBody, TableCell, TableContainer,
@@ -7,8 +8,8 @@ import {
     TextField, Tooltip, CircularProgress, useTheme
 } from "@mui/material";
 import { Edit as EditIcon, Delete as DeleteIcon, Search as SearchIcon } from '@mui/icons-material';
-import { CustomUser } from '../../../models/UserModel';
-import { getUsers, deleteUser, updateUser } from '../../../services/UserServices';
+import { CustomUser } from '@/models/UserModel';
+import { getUsers, deleteUser, updateUser } from '@/services/UserServices';
 import EditUserForm from './EditForm';
 import { visuallyHidden } from '@mui/utils';
 
@@ -29,6 +30,8 @@ const ViewProfile = () => {
         const fetchData = async () => {
             try {
                 const data = await getUsers();
+                console.log("Usuarios obtenidos:", data);
+
                 setUsers(data);
                 setFilteredUsers(data);
             } catch (error) {
@@ -178,17 +181,14 @@ const ViewProfile = () => {
 
     return (
         <Box sx={{
-            bgcolor: theme.palette.background.default,
             minHeight: "100vh",
             p: 3,
-            color: theme.palette.text.primary
         }}>
             {/* Título y Barra de Búsqueda */}
             <Box sx={{ mb: 4 }}>
                 <Typography variant="h4" sx={{
                     fontWeight: 600,
                     mb: 2,
-                    color: theme.palette.primary.main
                 }}>
                     Gestión de Usuarios
                 </Typography>
@@ -202,12 +202,10 @@ const ViewProfile = () => {
                     InputProps={{
                         startAdornment: (
                             <SearchIcon sx={{
-                                color: theme.palette.action.active,
                                 mr: 1
                             }} />
                         ),
                         sx: {
-                            backgroundColor: theme.palette.background.paper,
                             borderRadius: 1
                         }
                     }}
@@ -240,9 +238,7 @@ const ViewProfile = () => {
                                         <TableCell
                                             key={cell.id}
                                             sx={{
-                                                backgroundColor: theme.palette.grey[100],
                                                 fontWeight: 600,
-                                                color: theme.palette.text.primary
                                             }}
                                         >
                                             {cell.sortable ? (
@@ -269,13 +265,6 @@ const ViewProfile = () => {
                                 {stableSort(filteredUsers, getComparator(order, orderBy)).map((user) => (
                                     <TableRow
                                         key={user.id}
-                                        hover
-                                        sx={{
-                                            '&:last-child td, &:last-child th': { border: 0 },
-                                            '&:hover': {
-                                                backgroundColor: theme.palette.action.hover
-                                            }
-                                        }}
                                     >
                                         <TableCell>
                                             <Avatar
@@ -323,12 +312,6 @@ const ViewProfile = () => {
                                                 <Tooltip title="Editar" arrow>
                                                     <IconButton
                                                         onClick={() => handleEdit(user)}
-                                                        sx={{
-                                                            color: theme.palette.primary.main,
-                                                            '&:hover': {
-                                                                backgroundColor: theme.palette.primary.light
-                                                            }
-                                                        }}
                                                     >
                                                         <EditIcon fontSize="small" />
                                                     </IconButton>
@@ -336,12 +319,6 @@ const ViewProfile = () => {
                                                 <Tooltip title="Eliminar" arrow>
                                                     <IconButton
                                                         onClick={() => handleDeleteClick(user.id)}
-                                                        sx={{
-                                                            color: theme.palette.error.main,
-                                                            '&:hover': {
-                                                                backgroundColor: theme.palette.error.light
-                                                            }
-                                                        }}
                                                     >
                                                         <DeleteIcon fontSize="small" />
                                                     </IconButton>
@@ -370,8 +347,6 @@ const ViewProfile = () => {
                 }}
             >
                 <DialogTitle sx={{
-                    bgcolor: theme.palette.grey[100],
-                    borderBottom: `1px solid ${theme.palette.divider}`,
                     fontWeight: 600
                 }}>
                     Confirmar Eliminación
@@ -384,7 +359,6 @@ const ViewProfile = () => {
                 <DialogActions sx={{
                     p: 2,
                     borderTop: `1px solid ${theme.palette.divider}`,
-                    bgcolor: theme.palette.grey[50]
                 }}>
                     <Button
                         onClick={handleCancelDelete}
@@ -420,7 +394,6 @@ const ViewProfile = () => {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        backgroundColor: 'rgba(0,0,0,0.7)',
                         zIndex: theme.zIndex.modal,
                         display: 'flex',
                         alignItems: 'center',
