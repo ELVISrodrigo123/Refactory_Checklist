@@ -8,7 +8,6 @@ const ListArt: React.FC = () => {
             <PageHeader width="xl" title="Art Activities" subtitle="Manage your art activities here" />
             <Box sx={{ mt: 4 }}>
                 <ArtactividadContainer />
-                
             </Box>            
         </Box>
     );
