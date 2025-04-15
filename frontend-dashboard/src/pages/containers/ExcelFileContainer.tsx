@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ExcelFile } from "../models/ExcelFile";
-import { getExcelFiles, createExcelFile, deleteExcelFile } from "../services/excelFileService";
+import { ExcelFile } from "../../models/ExcelFile";
+import { getExcelFiles, createExcelFile, deleteExcelFile } from "../../services/excelFileService";
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 
 const ExcelFileContainer: React.FC = () => {

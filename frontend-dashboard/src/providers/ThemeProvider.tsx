@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, CssBaseline } from "@mui/material";
 import theme from "@/config/theme";
 import { Geist, Geist_Mono } from "next/font/google";
 import GlobalBgProvider from "./GlobaBgProvider";
@@ -24,8 +24,8 @@ export default function AppProviders({ children }: Props) {
     return (
         <div className={`${geistSans.variable} ${geistMono.variable}`}>
             <ThemeProvider theme={theme}>
+                <CssBaseline />
                 <GlobalBgProvider>
-
                     {children}
                 </GlobalBgProvider>
             </ThemeProvider>

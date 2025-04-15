@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Artactividad } from "./services/ArtactividadService";
+import { Artactividad } from "../services/ArtactividadService";
 import { Button, TextField, Box } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
@@ -58,8 +58,8 @@ const ArtactividadForm: React.FC<ArtactividadFormProps> = ({
   );
 
   return (
-    <form onSubmit={manejarSubmit}>
-      <Box sx={{ mb: 2 }}>
+    <Box component={"form"} onSubmit={manejarSubmit} sx={{ p:2, display: 'flex', gap: 2}}>
+      <Box sx={{ mb: 2, flex: 1 }}>
         <TextField
           label="Nombre"
           name="nombre"
@@ -68,12 +68,7 @@ const ArtactividadForm: React.FC<ArtactividadFormProps> = ({
           fullWidth
           variant="outlined"
           required
-          sx={{ 
-            backgroundColor: "white",
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '4px'
-            }
-          }}
+          
         />
       </Box>
 
@@ -91,7 +86,7 @@ const ArtactividadForm: React.FC<ArtactividadFormProps> = ({
       >
         {artactividadSeleccionada ? "Actualizar" : "Crear"}
       </Button>
-    </form>
+    </Box>
   );
 };
 

@@ -1,7 +1,8 @@
+"use client";
 import React, { useEffect, useState, useCallback } from 'react';
-import { Box, Typography } from '@mui/material';
-import ArtactividadService, { Artactividad } from '../services/ArtactividadService';
-import ArtactividadList from '../components/ArtactividadList';
+import { Card } from '@mui/material';
+import ArtactividadService, { Artactividad } from '../../services/ArtactividadService';
+import ArtactividadList from '@/components/ArtactividadList';
 import ArtactividadForm from '../ArtactividadForm';
 
 const ArtactividadContainer: React.FC = () => {
@@ -39,13 +40,7 @@ const ArtactividadContainer: React.FC = () => {
   };
 
   return (
-    <Box sx={{
-      m: 3,
-      p: 4,
-      borderRadius: 2,
-      boxShadow: 3,
-      bgcolor: "#fff"
-    }}>
+    <Card>
 
       <ArtactividadForm
         onSubmit={manejarCrear}
@@ -59,7 +54,7 @@ const ArtactividadContainer: React.FC = () => {
         onEliminar={manejarEliminar}
         onEditar={setSelectedArtactividad}
       />
-    </Box>
+    </Card>
   );
 };
 

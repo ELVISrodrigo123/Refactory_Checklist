@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getMedidasControlPorActividad } from "../services/MedidaControlService";
-import { MedidaControl, Actividad } from "../models/MedidaControl";
+import { getMedidasControlPorActividad } from "../../services/MedidaControlService";
+import { MedidaControl, Actividad } from "../../models/MedidaControl";
 
 interface Props {
     actividadId: number;
