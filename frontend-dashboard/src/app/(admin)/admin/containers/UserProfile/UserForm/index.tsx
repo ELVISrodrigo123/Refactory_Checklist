@@ -1,9 +1,6 @@
 "use client";
 import React, { useState } from 'react';
 import { CustomUser } from '@/models/UserModel';
-import { createUser } from '@/services/UserServices';
-import { CustomUser } from '@/models/UserModel';
-import { createUser } from '@/services/UserServices';
 import {
     TextField, Button, Select, MenuItem, FormControl,
     InputLabel, Box, Grid, Paper, Fade, SelectChangeEvent,
@@ -12,6 +9,7 @@ import {
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import ClearIcon from "@mui/icons-material/Clear";
 import { styled } from '@mui/material/styles';
+import { createUser } from '@/services/UserServices';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     width: '90%',
@@ -19,7 +17,6 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
     margin: 'auto',
     padding: theme.spacing(4),
     borderRadius: 12,
-    backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
 }));
 
@@ -27,9 +24,6 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     marginBottom: theme.spacing(2),
     '& .MuiInputLabel-root.Mui-focused': {
         color: theme.palette.primary.main,
-    },
-    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.palette.primary.main,
     },
 }));
 
@@ -322,7 +316,7 @@ const UserForm = () => {
                                         component="label"
                                         variant="outlined"
                                         startIcon={<CloudUploadIcon />}
-                                        sx={{ textTransform: 'none', bgcolor: "#6a6c77" }}
+                                        sx={{ textTransform: 'none' }}
                                     >
                                         Subir foto
                                         <input
@@ -338,7 +332,7 @@ const UserForm = () => {
                                     </Button>
 
                                     {formData.photo && (
-                                        <Box sx={{ display: 'flex', alignItems: 'center', bgcolor: "#6a6c77", gap: 1 }}>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                             <Avatar
                                                 src={URL.createObjectURL(formData.photo)}
                                                 sx={{ width: 40, height: 40 }}

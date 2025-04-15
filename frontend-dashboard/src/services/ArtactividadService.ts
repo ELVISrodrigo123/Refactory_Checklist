@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/artactividad/`; // Cambia según tu backend
 
 export interface Artactividad {
-    id?: number;
+    id: number;
     nombre: string;
     descripcion: string;
 }

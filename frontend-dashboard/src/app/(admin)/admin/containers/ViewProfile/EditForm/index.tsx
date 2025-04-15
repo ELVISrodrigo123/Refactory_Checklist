@@ -83,13 +83,11 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onCancel })
         <Paper elevation={6} sx={{
             p: 3,
             borderRadius: 3,
-            backgroundColor: '#2C3E50',
-            color: '#fff',
             width: '90%',
             maxWidth: 800,
             margin: 'auto'
         }}>
-            <Typography variant="h6" gutterBottom sx={{ color: '#fff' }}>
+            <Typography variant="h6" gutterBottom sx={{  }}>
                 Editar Usuario
             </Typography>
             <form onSubmit={handleSubmit}>
@@ -102,16 +100,6 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onCancel })
                             value={updatedUser.username}
                             onChange={(e) => handleChange(e as SelectChangeEvent<string>)}
                             required
-                            sx={{
-                                my: 1,
-                                "& .MuiInputBase-input": { color: "#fff" },
-                                "& .MuiInputLabel-root": { color: "#fff" },
-                                "& .MuiOutlinedInput-root": {
-                                    "& fieldset": { borderColor: "#fff" },
-                                    "&:hover fieldset": { borderColor: "#fff" },
-                                    "&.Mui-focused fieldset": { borderColor: "#fff" },
-                                },
-                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -121,16 +109,6 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onCancel })
                             name="email"
                             value={updatedUser.email || ''}
                             onChange={(e) => handleChange(e as SelectChangeEvent<string>)}
-                            sx={{
-                                my: 1,
-                                "& .MuiInputBase-input": { color: "#fff" },
-                                "& .MuiInputLabel-root": { color: "#fff" },
-                                "& .MuiOutlinedInput-root": {
-                                    "& fieldset": { borderColor: "#fff" },
-                                    "&:hover fieldset": { borderColor: "#fff" },
-                                    "&.Mui-focused fieldset": { borderColor: "#fff" },
-                                },
-                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -141,16 +119,6 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onCancel })
                             value={updatedUser.first_name}
                             onChange={(e) => handleChange(e as SelectChangeEvent<string>)}
                             required
-                            sx={{
-                                my: 1,
-                                "& .MuiInputBase-input": { color: "#fff" },
-                                "& .MuiInputLabel-root": { color: "#fff" },
-                                "& .MuiOutlinedInput-root": {
-                                    "& fieldset": { borderColor: "#fff" },
-                                    "&:hover fieldset": { borderColor: "#fff" },
-                                    "&.Mui-focused fieldset": { borderColor: "#fff" },
-                                },
-                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -161,16 +129,6 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onCancel })
                             value={updatedUser.last_name}
                             onChange={(e) => handleChange(e as SelectChangeEvent<string>)}
                             required
-                            sx={{
-                                my: 1,
-                                "& .MuiInputBase-input": { color: "#fff" },
-                                "& .MuiInputLabel-root": { color: "#fff" },
-                                "& .MuiOutlinedInput-root": {
-                                    "& fieldset": { borderColor: "#fff" },
-                                    "&:hover fieldset": { borderColor: "#fff" },
-                                    "&.Mui-focused fieldset": { borderColor: "#fff" },
-                                },
-                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -181,16 +139,6 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onCancel })
                             value={updatedUser.identity_card}
                             onChange={(e) => handleChange(e as SelectChangeEvent<string>)}
                             required
-                            sx={{
-                                my: 1,
-                                "& .MuiInputBase-input": { color: "#fff" },
-                                "& .MuiInputLabel-root": { color: "#fff" },
-                                "& .MuiOutlinedInput-root": {
-                                    "& fieldset": { borderColor: "#fff" },
-                                    "&:hover fieldset": { borderColor: "#fff" },
-                                    "&.Mui-focused fieldset": { borderColor: "#fff" },
-                                },
-                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -200,35 +148,18 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onCancel })
                             name="phone_number"
                             value={updatedUser.phone_number || ''}
                             onChange={(e) => handleChange(e as SelectChangeEvent<string>)}
-                            sx={{
-                                my: 1,
-                                "& .MuiInputBase-input": { color: "#fff" },
-                                "& .MuiInputLabel-root": { color: "#fff" },
-                                "& .MuiOutlinedInput-root": {
-                                    "& fieldset": { borderColor: "#fff" },
-                                    "&:hover fieldset": { borderColor: "#fff" },
-                                    "&.Mui-focused fieldset": { borderColor: "#fff" },
-                                },
-                            }}
                         />
                     </Grid>
 
                     {/* Selectores como en el formulario de creación */}
                     <Grid item xs={12} sm={6}>
                         <FormControl fullWidth sx={{ my: 1 }}>
-                            <InputLabel sx={{ color: "#fff" }}>Turno *</InputLabel>
+                            <InputLabel>Turno *</InputLabel>
                             <Select
                                 name="shift_type"
                                 value={updatedUser.shift_type}
                                 onChange={handleChange}
                                 required
-                                sx={{
-                                    color: "#fff",
-                                    "& .MuiSvgIcon-root": { color: "#fff" },
-                                    "& .MuiOutlinedInput-notchedOutline": { borderColor: "#fff" },
-                                    "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#fff" },
-                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#fff" },
-                                }}
                             >
                                 <MenuItem value="Día">Día</MenuItem>
                                 <MenuItem value="Noche">Noche</MenuItem>
@@ -238,19 +169,12 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onCancel })
 
                     <Grid item xs={12} sm={6}>
                         <FormControl fullWidth sx={{ my: 1 }}>
-                            <InputLabel sx={{ color: "#fff" }}>Grupo *</InputLabel>
+                            <InputLabel>Grupo *</InputLabel>
                             <Select
                                 name="shift_group"
                                 value={updatedUser.shift_group}
                                 onChange={handleChange}
                                 required
-                                sx={{
-                                    color: "#fff",
-                                    "& .MuiSvgIcon-root": { color: "#fff" },
-                                    "& .MuiOutlinedInput-notchedOutline": { borderColor: "#fff" },
-                                    "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#fff" },
-                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#fff" },
-                                }}
                             >
                                 <MenuItem value={1}>Grupo 1</MenuItem>
                                 <MenuItem value={2}>Grupo 2</MenuItem>
@@ -262,19 +186,12 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onCancel })
 
                     <Grid item xs={12} sm={6}>
                         <FormControl fullWidth sx={{ my: 1 }}>
-                            <InputLabel sx={{ color: "#fff" }}>Rol *</InputLabel>
+                            <InputLabel>Rol *</InputLabel>
                             <Select
                                 name="role"
                                 value={updatedUser.role}
                                 onChange={handleChange}
                                 required
-                                sx={{
-                                    color: "#fff",
-                                    "& .MuiSvgIcon-root": { color: "#fff" },
-                                    "& .MuiOutlinedInput-notchedOutline": { borderColor: "#fff" },
-                                    "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#fff" },
-                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#fff" },
-                                }}
                             >
                                 <MenuItem value="jefe_area">Jefe de Área</MenuItem>
                                 <MenuItem value="capataz">Capataz</MenuItem>
@@ -291,16 +208,6 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onCancel })
                             name="password"
                             value={password}
                             onChange={handlePasswordChange}
-                            sx={{
-                                my: 1,
-                                "& .MuiInputBase-input": { color: "#fff" },
-                                "& .MuiInputLabel-root": { color: "#fff" },
-                                "& .MuiOutlinedInput-root": {
-                                    "& fieldset": { borderColor: "#fff" },
-                                    "&:hover fieldset": { borderColor: "#fff" },
-                                    "&.Mui-focused fieldset": { borderColor: "#fff" },
-                                },
-                            }}
                             placeholder="Dejar en blanco para no cambiar"
                         />
                     </Grid>
@@ -311,9 +218,6 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onCancel })
                             variant="contained"
                             startIcon={<CloudUploadIcon />}
                             sx={{
-                                backgroundColor: "#1976D2",
-                                color: "#fff",
-                                "&:hover": { backgroundColor: "#1565C0" },
                                 padding: "8px 16px",
                                 borderRadius: "8px",
                                 fontSize: "14px",
@@ -341,12 +245,12 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onCancel })
                         )}
 
                         {selectedPhoto && (
-                            <Typography variant="body2" sx={{ mt: 1, color: '#fff' }}>
+                            <Typography variant="body2" sx={{ mt: 1,  }}>
                                 Nueva foto seleccionada: {selectedPhoto.name}
                             </Typography>
                         )}
                         {removePhoto && (
-                            <Typography variant="body2" sx={{ mt: 1, color: '#ff9999' }}>
+                            <Typography variant="body2" sx={{ mt: 1 }}>
                                 Foto actual será eliminada
                             </Typography>
                         )}
