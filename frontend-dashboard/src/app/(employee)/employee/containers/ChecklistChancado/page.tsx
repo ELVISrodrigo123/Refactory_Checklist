@@ -611,9 +611,9 @@ const ChecklistChancado = () => {
                                 <TableRow>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Formulario</TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Usuario</TableCell>
+                                    <TableCell sx={{ fontWeight: 'bold' }}>Nombre</TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Fecha respuesta</TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Última revisión</TableCell>
-                                    <TableCell sx={{ fontWeight: 'bold' }}>Acciones</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -638,7 +638,7 @@ const ChecklistChancado = () => {
                                         });
 
                                         return (
-                                            <TableRow key={respuesta.id}>
+                                            <TableRow key={respuesta.id} >
                                                 <TableCell>
                                                     {formulario ? formulario.titulo : `ID ${respuesta.formulario}`}
                                                 </TableCell>
@@ -646,19 +646,15 @@ const ChecklistChancado = () => {
                                                     {respuesta.usuario_username || `${respuesta.usuario} - ${userInfo?.nombre || 'Usuario'}`}
                                                 </TableCell>
                                                 <TableCell>
+                                                    {userInfo?.nombre}
+                                                </TableCell>
+                                                <TableCell>
                                                     {fechaFormateada}
                                                 </TableCell>
                                                 <TableCell>
-                                                    esto hay que coregir
+                                                    {respuesta.estado } 
                                                 </TableCell>
-                                                <TableCell>
-                                                    <Button
-                                                        size="small"
-                                                        onClick={() => cargarRespuestaExistente(respuesta.id)}
-                                                    >
-                                                        Cargar
-                                                    </Button>
-                                                </TableCell>
+                                                
                                             </TableRow>
                                         );
                                     })
