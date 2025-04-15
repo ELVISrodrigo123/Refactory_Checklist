@@ -1,5 +1,5 @@
+"use client"
 import React, { useState, useEffect } from "react";
-import Layout from "../../../components/layout";
 import {
     Box,
     Button,
@@ -23,14 +23,14 @@ import {
 } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { getFormularios } from "../../../../services/Formulario";
-import { getSectores } from "../../../../services/Sector";
-import { TareaChecklistService } from "../../../../services/TareaChecklistService";
+import { getFormularios } from "@/services/Formulario";
+import { getSectores } from "@/services/Sector";
+import { TareaChecklistService } from "@/services/TareaChecklistService";
 import {
     createCompleteRespuesta,
     deleteRespuesta,
     getRespuestas
-} from '../../../../services/RespuestaChecklistService';
+} from '@/services/RespuestaChecklistService';
 import InformacionFormulario from "../InforUsers";
 import GenerarPDF from "../GenerarPDF";
 
@@ -545,22 +545,15 @@ const ChecklistChancado = () => {
 
     if (inicializando) {
         return (
-            <Layout>
                 <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
                     <CircularProgress size={60} />
                 </Box>
-            </Layout>
         );
     }
 
     return (
-        <Layout>
             <Box sx={{
-                bgcolor: "#1E293B",
-                p: isMobile ? 2 : 4,
-                borderRadius: 2,
-                minHeight: "100vh",
-                overflowX: 'hidden'
+                p: isMobile ? 2 : 4
             }}>
                 <Typography variant="h4" sx={{ mb: 3, color: "#fff" }}>
                     Check List Chancado
@@ -606,8 +599,8 @@ const ChecklistChancado = () => {
                     obtenerNombreSector={obtenerNombreSector}
                     isMobile={isMobile}
                 />
-                <Box sx={{ mt: 2, mb: 3, bgcolor: '#f5f5f5', p: 2, borderRadius: 2 }}>
-                    <Typography variant="h6" sx={{ mb: 1, color: '#333' }}>
+                <Box sx={{ mt: 2, mb: 3}}>
+                    <Typography sx={{mb:3}}>
                         {formularioSeleccionado
                             ? `Historial - ${formularioSeleccionado.titulo}`
                             : 'Historial completo'}
@@ -656,18 +649,12 @@ const ChecklistChancado = () => {
                                                     {fechaFormateada}
                                                 </TableCell>
                                                 <TableCell>
-                                                    Sin revisión
+                                                    esto hay que coregir
                                                 </TableCell>
                                                 <TableCell>
                                                     <Button
                                                         size="small"
                                                         onClick={() => cargarRespuestaExistente(respuesta.id)}
-                                                        sx={{
-                                                            mr: 1,
-                                                            bgcolor: '#3B82F6',
-                                                            color: 'white',
-                                                            '&:hover': { bgcolor: '#2563EB' }
-                                                        }}
                                                     >
                                                         Cargar
                                                     </Button>
@@ -691,7 +678,6 @@ const ChecklistChancado = () => {
                         <InputLabel
                             id="formulario-label"
                             sx={{
-                                color: "#fff",
                                 fontSize: isMobile ? '0.875rem' : '1rem'
                             }}
                         >
@@ -705,14 +691,6 @@ const ChecklistChancado = () => {
                                 setFormularioSeleccionado(formulario || null);
                             }}
                             label="Seleccione un formulario"
-                            sx={{
-                                bgcolor: "#1E293B",
-                                borderRadius: 1,
-                                '& .MuiSelect-select': {
-                                    fontSize: isMobile ? '0.875rem' : '1rem',
-                                    padding: isMobile ? '12px 14px' : '16px'
-                                }
-                            }}
                         >
                             <MenuItem value="" sx={{ fontSize: isMobile ? '0.875rem' : '1rem' }}>
                                 Seleccione un formulario
@@ -733,12 +711,6 @@ const ChecklistChancado = () => {
                         variant="contained"
                         onClick={crearNuevaRespuesta}
                         disabled={!formularioSeleccionado || cargando}
-                        sx={{
-                            flex: 1,
-                            bgcolor: '#4CAF50',
-                            '&:hover': { bgcolor: '#388E3C' },
-                            height: '56px'
-                        }}
                         startIcon={cargando ? <CircularProgress size={20} color="inherit" /> : null}
                     >
                         {cargando ? 'Creando...' : 'Llenar Formulario'}
@@ -751,11 +723,6 @@ const ChecklistChancado = () => {
                             <Box sx={responsiveStyles.tableContainer}>
                                 <TableContainer
                                     component={Paper}
-                                    sx={{
-                                        borderRadius: 2,
-                                        width: '100%',
-                                        display: 'block'
-                                    }}
                                 >
                                     <Table sx={responsiveStyles.table} size="small">
                                         <TableHead>
@@ -812,12 +779,6 @@ const ChecklistChancado = () => {
                                                                     <Checkbox
                                                                         checked={tarea.si}
                                                                         onChange={(e) => handleCambioTarea(tarea.id, "si", e.target.checked)}
-                                                                        sx={{
-                                                                            color: "black",
-                                                                            "&.Mui-checked": { color: "black" },
-                                                                            ...responsiveStyles.checkbox,
-                                                                            padding: '4px'
-                                                                        }}
                                                                         size="small"
                                                                     />
                                                                 </TableCell>
@@ -825,12 +786,6 @@ const ChecklistChancado = () => {
                                                                     <Checkbox
                                                                         checked={tarea.no}
                                                                         onChange={(e) => handleCambioTarea(tarea.id, "no", e.target.checked)}
-                                                                        sx={{
-                                                                            color: "black",
-                                                                            "&.Mui-checked": { color: "black" },
-                                                                            ...responsiveStyles.checkbox,
-                                                                            padding: '4px'
-                                                                        }}
                                                                         size="small"
                                                                     />
                                                                 </TableCell>
@@ -844,18 +799,6 @@ const ChecklistChancado = () => {
                                                                         onChange={(e) => handleCambioTarea(tarea.id, "observaciones", e.target.value)}
                                                                         fullWidth
                                                                         size="small"
-                                                                        sx={{
-                                                                            "& .MuiOutlinedInput-root": {
-                                                                                color: "black",
-                                                                                "& fieldset": { borderColor: "black" },
-                                                                                "&:hover fieldset": { borderColor: "black" },
-                                                                                "&.Mui-focused fieldset": { borderColor: "black" }
-                                                                            },
-                                                                            fontSize: '0.875rem',
-                                                                            '& .MuiInputBase-input': {
-                                                                                py: '8px'
-                                                                            }
-                                                                        }}
                                                                     />
                                                                 </TableCell>
                                                             </TableRow>
@@ -869,8 +812,6 @@ const ChecklistChancado = () => {
                             </Box>
 
                             <Box sx={{
-                                mt: 2,
-                                bgcolor: "#fff",
                                 ...responsiveStyles.commentBox
                             }}>
                                 <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: "bold", fontSize: '0.875rem' }}>
@@ -885,17 +826,11 @@ const ChecklistChancado = () => {
                                     placeholder="Ingrese las observaciones generales sobre el checklist..."
                                     variant="outlined"
                                     size="small"
-                                    sx={{
-                                        fontSize: '0.875rem',
-                                        '& .MuiInputBase-input': {
-                                            py: '8px'
-                                        }
-                                    }}
                                 />
                             </Box>
                         </>
                     ) : (
-                        <Typography variant="body2" sx={{ mt: 1, color: "#fff" }}>
+                        <Typography >
                             No hay tareas para este formulario.
                         </Typography>
                     )
@@ -909,29 +844,9 @@ const ChecklistChancado = () => {
                     ...responsiveStyles.buttonGroup
                 }}>
                     <Button
-                        variant="contained"
-                        onClick={guardarTemporalmente}
-                        disabled={!modoCreacion || cargando}
-                        sx={{ bgcolor: "#3B82F6", "&:hover": { bgcolor: "#2563EB" } }}
-                    >
-                        {cargando ? 'Guardando...' : 'Guardar Temporalmente'}
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="success"
-                        onClick={enviarFormulario}
-                        disabled={!modoCreacion || cargando}
-                        sx={{ bgcolor: "#10B981", "&:hover": { bgcolor: "#059669" } }}
-                        startIcon={cargando ? <CircularProgress size={20} color="inherit" /> : null}
-                    >
-                        {cargando ? 'Guardando...' : (respuestaId ? "Actualizar Respuesta" : "Guardar Respuesta")}
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="error"
+                        variant="outlined"
                         onClick={vaciarFormulario}
                         disabled={cargando}
-                        sx={{ bgcolor: "#EF4444", "&:hover": { bgcolor: "#DC2626" } }}
                     >
                         Vaciar Formulario
                     </Button>
@@ -950,7 +865,6 @@ const ChecklistChancado = () => {
                     />
                 </Box>
             </Box>
-        </Layout>
     );
 };
 

@@ -26,21 +26,21 @@ const InformacionFormulario: React.FC<Props> = (props) => {
     const { fechaActual, horaActual, userInfo, area = "N/A" } = props;
 
     return (
-        <TableContainer component={Paper} sx={{ borderRadius: 2, mb: 3, bgcolor: "#1E293B" }}>
+        <TableContainer component={Paper} >
             <Table>
                 <TableBody>
                     <TableRow>
-                        <TableCell sx={{ color: "#fff" }}>Fecha: {fechaActual}</TableCell>
-                        <TableCell sx={{ color: "#fff" }}>Hora: {horaActual}</TableCell>
-                        <TableCell sx={{ color: "#fff" }}>Turno: {userInfo?.turno}</TableCell>
+                        <TableCell >Fecha: {fechaActual}</TableCell>
+                        <TableCell >Hora: {horaActual}</TableCell>
+                        <TableCell >Turno: {userInfo?.turno}</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell sx={{ color: "#fff" }}>Operador: {userInfo?.nombre}</TableCell>
-                        <TableCell sx={{ color: "#fff" }}>Firma: {userInfo?.rol}</TableCell>
-                        <TableCell sx={{ color: "#fff" }}>Área: {area}</TableCell>
+                        <TableCell >Operador: {userInfo?.nombre}</TableCell>
+                        <TableCell >Firma: {userInfo?.rol}</TableCell>
+                        <TableCell >Área: {area}</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell sx={{ color: "#fff" }}>Grupo: {userInfo?.grupo}</TableCell>
+                        <TableCell >Grupo: {userInfo?.grupo}</TableCell>
                     </TableRow>
                 </TableBody>
             </Table>

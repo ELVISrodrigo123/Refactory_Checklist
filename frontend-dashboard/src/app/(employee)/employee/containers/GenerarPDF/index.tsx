@@ -343,14 +343,10 @@ const body = Object.values(tareasAgrupadas).flatMap(grupo => {
 
     return (
         <Button
-            variant="contained"
-            color="success"
+            variant="outlined"
             onClick={generarPDF}
             sx={{
                 ml: 2,
-                bgcolor: "#4CAF50",
-                color: "#fff",
-                "&:hover": { bgcolor: "#45a049" },
                 fontSize: "0.75rem",
                 padding: "6px 12px",
             }}
