@@ -130,7 +130,7 @@ export const updateRespuesta = async (
 
     // 2. Actualizar cada tarea individualmente
     const tareasActualizadas: RespuestaTarea[] = [];
-    
+
     if (payload.respuestas_tareas && payload.respuestas_tareas.length > 0) {
       for (const tareaPayload of payload.respuestas_tareas) {
         if (tareaPayload.id) {
@@ -205,7 +205,7 @@ export const deleteRespuesta = async (id: number): Promise<void> => {
     );
     throw new Error(
       error.response?.data?.message ||
-        `Error al eliminar la respuesta con ID ${id}`
+      `Error al eliminar la respuesta con ID ${id}`
     );
   }
 };
@@ -243,11 +243,6 @@ export const createCompleteRespuesta = async (
       throw new Error("Las respuestas de tareas deben ser un arreglo");
     }
 
-    // Configuración común de headers
-    const headers = {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    };
 
     // 3. Crear respuesta principal usando la instancia de api configurada
     const respuestaCreada = await api.post<RespuestaChecklist>("", {
@@ -290,7 +285,7 @@ export const createCompleteRespuesta = async (
 
     // Mejorar mensaje de error
     let errorMessage = "Error al procesar la solicitud completa";
-    
+
     if (error.response?.status === 401) {
       errorMessage = "Sesión expirada. Por favor, inicie sesión nuevamente";
       // Redirigir a login si es un error 401

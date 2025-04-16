@@ -145,34 +145,7 @@ const ChecklistChancado = () => {
         }
     }, [formularioSeleccionado]);
 
-    // Función para guardar temporalmente
-    const guardarTemporalmente = () => {
-        if (!formularioSeleccionado || !userInfo?.id) {
-            setError('Datos incompletos para guardar temporalmente');
-            return;
-        }
 
-        setCargando(true);
-        setError(null);
-        setExito(null);
-
-        try {
-            const datosTemporalesGuardar = {
-                formularioId: formularioSeleccionado.id,
-                tareas: datosTemporales,
-                comentarioFinal,
-                fechaGuardado: new Date().toISOString()
-            };
-
-            localStorage.setItem(`checklistTemporal_${userInfo.id}`, JSON.stringify(datosTemporalesGuardar));
-            setExito('Progreso guardado temporalmente. Puedes continuar más tarde.');
-        } catch (error: any) {
-            console.error('Error al guardar temporalmente:', error);
-            setError(error.message || 'Error al guardar temporalmente');
-        } finally {
-            setCargando(false);
-        }
-    };
 
     // Función para cargar datos iniciales
     const cargarDatosIniciales = async () => {
@@ -193,6 +166,8 @@ const ChecklistChancado = () => {
     const cargarTodasLasRespuestas = async () => {
         try {
             const respuestas = await getRespuestas();
+            console.log(respuestas);
+            
             setTodasLasRespuestas(respuestas);
         } catch (error) {
             console.error("Error al cargar todas las respuestas:", error);
@@ -370,88 +345,6 @@ const ChecklistChancado = () => {
         );
     };
 
-    // Función para validar el formulario
-    const validarFormulario = (): boolean => {
-        try {
-            // Validar que al menos un checkbox esté marcado en cada tarea
-            const tareasIncompletas = datosTemporales.filter(t => !t.si && !t.no);
-            if (tareasIncompletas.length > 0) {
-                const nombresTareas = tareasIncompletas.map(t => `"${t.descripcion}"`).join(', ');
-                throw new Error(`Complete las respuestas (SI/NO) para: ${nombresTareas}`);
-            }
-
-            // Validar que no haya tareas con ambos checkboxes marcados
-            const tareasConflictivas = datosTemporales.filter(t => t.si && t.no);
-            if (tareasConflictivas.length > 0) {
-                const nombresConflictivas = tareasConflictivas.map(t => `"${t.descripcion}"`).join(', ');
-                throw new Error(`Las siguientes tareas tienen ambas opciones marcadas: ${nombresConflictivas}`);
-            }
-
-            return true;
-        } catch (error: any) {
-            setError(error.message);
-            return false;
-        }
-    };
-
-    // Función para enviar el formulario
-    const enviarFormulario = async () => {
-        if (!formularioSeleccionado) {
-            setError('Debe seleccionar un formulario');
-            return;
-        }
-        
-        // Si no tenemos userInfo, intentamos cargarlo
-        if (!userInfo) {
-            try {
-                await cargarUserInfo();
-            } catch (error) {
-                setError('No se pudo identificar al usuario. Recargue la página.');
-                return;
-            }
-        }
-
-        if (!userInfo?.id) {
-            setError('No se pudo identificar al usuario. Recargue la página.');
-            return;
-        }
-
-        if (!validarFormulario()) {
-            return;
-        }
-
-        setCargando(true);
-        setError(null);
-        setExito(null);
-
-        try {
-            const respuestasTareas = datosTemporales.map(t => ({
-                tarea: t.id,
-                estado_bueno: t.si,
-                estado_malo: t.no,
-                comentario: t.observaciones || ""
-            }));
-
-            if (respuestaId) {
-                await updateCompleteRespuesta(
-                    respuestaId,
-                    comentarioFinal || "Sin comentarios", // Aquí pasamos comentarioFinal
-                    respuestasTareas
-                );
-                setExito('¡Checklist actualizado correctamente!');
-            } else {
-                await crearNuevaRespuesta(); // Esta función ya usa comentarioFinal
-            }
-
-            // ... resto del código ...
-        } catch (error: any) {
-            console.error('Error al enviar formulario:', error);
-            setError(error.message || 'Error al guardar el checklist');
-        } finally {
-            setCargando(false);
-        }
-    };
-
     // Función para vaciar el formulario
     const vaciarFormulario = async () => {
         if (respuestaId && window.confirm('¿Estás seguro de que deseas eliminar esta respuesta?')) {
@@ -487,9 +380,11 @@ const ChecklistChancado = () => {
 
     // Función para obtener respuestas a mostrar
     const getRespuestasAMostrar = () => {
+        console.log(todasLasRespuestas);
         if (!formularioSeleccionado) {
             return todasLasRespuestas;
         }
+        
         return todasLasRespuestas.filter(r => r.formulario === formularioSeleccionado.id);
     };
 
@@ -613,7 +508,7 @@ const ChecklistChancado = () => {
                                     <TableCell sx={{ fontWeight: 'bold' }}>Usuario</TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Fecha respuesta</TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Última revisión</TableCell>
-                                    <TableCell sx={{ fontWeight: 'bold' }}>Acciones</TableCell>
+                                    <TableCell sx={{ fontWeight: 'bold' }}>Estado</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -650,14 +545,6 @@ const ChecklistChancado = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     esto hay que coregir
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Button
-                                                        size="small"
-                                                        onClick={() => cargarRespuestaExistente(respuesta.id)}
-                                                    >
-                                                        Cargar
-                                                    </Button>
                                                 </TableCell>
                                             </TableRow>
                                         );
