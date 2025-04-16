@@ -506,6 +506,7 @@ const ChecklistChancado = () => {
                                 <TableRow>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Formulario</TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Usuario</TableCell>
+                                    <TableCell sx={{ fontWeight: 'bold' }}>Nombre</TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Fecha respuesta</TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Última revisión</TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Estado</TableCell>
@@ -533,7 +534,7 @@ const ChecklistChancado = () => {
                                         });
 
                                         return (
-                                            <TableRow key={respuesta.id}>
+                                            <TableRow key={respuesta.id} >
                                                 <TableCell>
                                                     {formulario ? formulario.titulo : `ID ${respuesta.formulario}`}
                                                 </TableCell>
@@ -541,10 +542,10 @@ const ChecklistChancado = () => {
                                                     {respuesta.usuario_username || `${respuesta.usuario} - ${userInfo?.nombre || 'Usuario'}`}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {fechaFormateada}
+                                                    {userInfo?.nombre}
                                                 </TableCell>
                                                 <TableCell>
-                                                    esto hay que coregir
+                                                    {fechaFormateada}
                                                 </TableCell>
                                             </TableRow>
                                         );
