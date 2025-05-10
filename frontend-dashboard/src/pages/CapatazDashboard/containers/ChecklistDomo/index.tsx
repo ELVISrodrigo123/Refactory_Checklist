@@ -31,7 +31,7 @@ import {
 import { Edit, Delete, Save, Cancel } from "@mui/icons-material";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { getRespuestas, updateRespuesta, deleteRespuesta } from "../../../services/RespuestaChecklistService";
+import { getRespuestas, updateRespuesta, deleteRespuesta } from "../../../../services/RespuestaChecklistService";
 import CapatazLayout from "@/pages/components/CapatazLayout";
 
 interface Respuesta {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ActividadService from "../services/ActividadService";
-import { Actividad } from "../models/ActividadModel";
+import ActividadService from "../../services/ActividadService";
+import { Actividad } from "../../models/ActividadModel";
 
 const ActividadList: React.FC = () => {
     const [actividades, setActividades] = useState<Actividad[]>([]);

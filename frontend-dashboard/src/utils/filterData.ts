@@ -1,4 +1,4 @@
-import { Artactividad } from "@/pages/services/ArtactividadService";
+import { Artactividad } from "@/services/ArtactividadService";
 
 export function filterData(data: Artactividad[], area: string) {
     const actividadesFiltradas: Artactividad[] = Array.isArray(data) ? data.filter(artactividad =>

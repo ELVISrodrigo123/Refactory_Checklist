@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ArtactividadService, { Artactividad } from '../services/ArtactividadService';
+import ArtactividadService, { Artactividad } from '../../services/ArtactividadService';
 import ArtactividadList from '../components/Area210List';
 
 const Area210Container: React.FC = () => {

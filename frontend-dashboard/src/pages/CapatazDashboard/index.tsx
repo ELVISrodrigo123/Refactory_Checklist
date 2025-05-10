@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { updateUserProfile } from '../services/auth';
+import { updateUserProfile } from '../../services/auth';
 import {
     AppBar,
     Toolbar,

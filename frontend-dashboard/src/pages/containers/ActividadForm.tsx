@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ActividadService from "../services/ActividadService";
-import { Actividad } from "../models/ActividadModel";
+import ActividadService from "../../services/ActividadService";
+import { Actividad } from "../../models/ActividadModel";
 
 interface ActividadFormProps {
     onAdd: () => void;
